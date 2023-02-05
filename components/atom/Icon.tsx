@@ -12,17 +12,7 @@ export const Icon = ({
   addCss,
 }: {
   name: // common
-  | 'ChevronDown'
-    | 'ChevronUp'
-    | 'ChevronLeft'
-    | 'ChevronRight'
-    //symbols
-    | 'Camera'
-    | 'Scene'
-    | 'Animation'
-    | 'Asset'
-    | 'Light'
-    | 'Grid'
+  'ChevronDown' | 'ChevronUp' | 'ChevronLeft' | 'ChevronRight'
   addCss?: CSSProp
 }) => {
   const defaultStyle = tw`w-6 h-6 stroke-2 stroke-white`
