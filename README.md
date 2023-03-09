@@ -21,6 +21,10 @@
 - Headless UI <https://headlessui.com/>
 - Radix UI <https://www.radix-ui.com/docs/primitives/overview/introduction>
 
+### Animation
+
+- Framer Motion <https://www.framer.com/motion/>
+
 ### Icon Resources
 
 - heroicons <https://heroicons.com/>
