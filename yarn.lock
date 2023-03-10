@@ -2666,7 +2666,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.42.0":
+"@typescript-eslint/parser@npm:^5.42.0, @typescript-eslint/parser@npm:^5.54.0":
   version: 5.54.1
   resolution: "@typescript-eslint/parser@npm:5.54.1"
   dependencies:
@@ -5661,6 +5661,7 @@ __metadata:
     "@types/react-dom": 18.0.10
     "@types/styled-components": ^5.1.26
     "@typescript-eslint/eslint-plugin": ^5.50.0
+    "@typescript-eslint/parser": ^5.54.0
     autoprefixer: ^10.4.13
     babel-loader: ^9.1.2
     babel-plugin-macros: ^3.1.0
