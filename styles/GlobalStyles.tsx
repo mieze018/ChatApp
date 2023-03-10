@@ -5,13 +5,13 @@ import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
 const CustomStyles = createGlobalStyle({
   body: {
     WebkitTapHighlightColor: theme`colors.primary`,
-    ...tw`antialiased text-white bg-black`,
+    ...tw`antialiased`,
   },
 })
 
 const GlobalStyles = () => (
   <>
-    {/* <BaseStyles /> */}
+    <BaseStyles />
     <CustomStyles />
   </>
 )
