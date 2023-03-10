@@ -20,14 +20,6 @@ module.exports = {
     },
   },
   rules: {
-    // 'react/no-unknown-property': [
-    //   'error',
-    //   {
-    //     ignore: ['css'],
-    //   },
-    // ],
-    //threeのコンポーネントにエラーが出るので全て無効化
-    "react/no-unknown-property": 0,
     'import/order': [
       'error',
       {
@@ -43,17 +35,21 @@ module.exports = {
     'import/newline-after-import': 'error',
     'no-multi-spaces': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
-    // 未使用のインポートを自動で削除したい
-    "no-unused-vars": "off",
-    "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
+    // 未使用のインポートを自動で削除
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
       {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
-      }
-    ]
-  }
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
+    // 相対パスのimportを禁止
+    'no-restricted-imports': ['error', { patterns: ['./', '../'] }],
+    // consoleを禁止
+    'no-console': 'error',
+  },
 }
