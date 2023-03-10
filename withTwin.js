@@ -3,8 +3,8 @@ const path = require('path')
 
 // The folders containing files importing twin.macro
 const includedDirs = [
-  path.resolve(__dirname, 'components'),
-  path.resolve(__dirname, 'pages'),
+  path.resolve(__dirname, 'src/components'),
+  path.resolve(__dirname, 'src/pages'),
   path.resolve(__dirname, 'styles'),
 ]
 
@@ -30,10 +30,7 @@ module.exports = function withTwin(nextConfig) {
                   require.resolve('babel-plugin-styled-components'),
                   { ssr: true, displayName: true },
                 ],
-                [
-                  require.resolve('@babel/plugin-syntax-typescript'),
-                  { isTSX: true },
-                ],
+                [require.resolve('@babel/plugin-syntax-typescript'), { isTSX: true }],
               ],
             },
           },
