@@ -2527,6 +2527,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tsconfig/strictest@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@tsconfig/strictest@npm:1.0.2"
+  checksum: 2ebf63d6507d3642f360798ef5c3247bf61d338a4d89cee703e6d75ce6007fa4ac0ccad5066a4e8840bec1503bef01454d4b75c0cc6678f31fa554d7175122ac
+  languageName: node
+  linkType: hard
+
 "@types/hoist-non-react-statics@npm:*":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
@@ -5656,6 +5663,7 @@ __metadata:
     "@headlessui/react": ^1.7.8
     "@next/font": 13.1.6
     "@svgr/webpack": ^6.5.1
+    "@tsconfig/strictest": ^1.0.2
     "@types/node": 18.11.18
     "@types/react": 18.0.27
     "@types/react-dom": 18.0.10
