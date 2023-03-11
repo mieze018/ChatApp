@@ -8,6 +8,7 @@ module.exports = {
     'next',
     'next/core-web-vitals',
     'prettier',
+    'plugin:storybook/recommended',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'import', 'css', 'unused-imports'],
@@ -48,7 +49,12 @@ module.exports = {
       },
     ],
     // 相対パスのimportを禁止
-    'no-restricted-imports': ['error', { patterns: ['./', '../'] }],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['./', '../'],
+      },
+    ],
     // consoleを禁止
     'no-console': 'error',
   },
