@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
 import type { useSendMessageType } from '@/src/hooks/firebase/useSendMessage'
 
@@ -37,9 +39,13 @@ export const Chat = ({
           return (
             <div key={i} className="flex items-center">
               <div className="w-4 h-4 border rounded-full text-gray-lighter">
-                <NoUserImage className="w-full h-full" />
+                {photoURL ? (
+                  <Image src={photoURL} alt={displayName ?? noName} width={16} height={16} />
+                ) : (
+                  <NoUserImage className="w-full h-full" />
+                )}
               </div>
-              <div>{displayName} : </div>
+              <div>{displayName ?? noName} : </div>
               <div>{message}</div>
             </div>
           )
