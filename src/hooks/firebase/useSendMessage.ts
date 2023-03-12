@@ -19,7 +19,11 @@ export const useSendMessage = () => {
       const dbRef = ref(db, 'chat')
       await push(dbRef, {
         message,
-        uid: user?.uid,
+        user: {
+          displayName: user?.displayName,
+          photoURL: user?.photoURL,
+          uid: user?.uid,
+        },
       })
       setMessage('')
     } catch (cachedError) {

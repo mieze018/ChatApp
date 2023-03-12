@@ -9,10 +9,9 @@ export const useAuthStateListener = () => {
   const isReady = router.isReady
   const [isLoading, setIsLoading] = useState<boolean>(true)
   useEffect(() => {
-    if (!isReady) setIsLoading(true)
     if (isReady) setIsLoading(false)
-    if (!user) router.push('/')
-    if (user) router.push('/chat')
+    if (!user && router.pathname.includes('/chat')) router.push('/')
+    if (user && !router.pathname.includes('/chat')) router.push('/chat')
   }, [isReady, router, user])
 
   onAuthStateChanged(auth, (user) => {
