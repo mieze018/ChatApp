@@ -1,21 +1,22 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useAuthStateListener = () => {
   const auth = getAuth()
   const user = auth.currentUser
   const router = useRouter()
+  const isReady = router.isReady
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  useEffect(() => {
+    if (!isReady) setIsLoading(true)
+    if (isReady) setIsLoading(false)
+    if (!user) router.push('/')
+    if (user) router.push('/chat')
+  }, [isReady, router, user])
+
   onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      router.push('/')
-      setIsLoading(false)
-    }
-    if (user) {
-      router.push('/chat')
-      setIsLoading(false)
-    }
+    return user
   })
   return { user, isAuthLoading: isLoading }
 }

@@ -1,4 +1,7 @@
 import { getApp, getApps, initializeApp } from 'firebase/app'
+import { getStorage } from 'firebase/storage'
+
+import type { FirebaseApp } from 'firebase/app'
 
 import {
   FIREBASE_API_KEY,
@@ -20,3 +23,5 @@ const firebaseConfig = {
 
 export const initializeFirebaseApp = () =>
   !getApps().length ? initializeApp(firebaseConfig) : getApp()
+
+export const firebaseStorage = (app: FirebaseApp) => getStorage(app)

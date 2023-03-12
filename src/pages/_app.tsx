@@ -6,10 +6,10 @@ import type { AppProps } from 'next/app'
 
 import { WrapperApp } from '@/src/components/atom/WrapperApp'
 import { useAuthStateListener } from '@/src/hooks/firebase/useAuthStateListener'
-import { initializeFirebaseApp } from '@/src/libs/firebase'
+import { firebaseStorage, initializeFirebaseApp } from '@/src/libs/firebase'
 import GlobalStyles from '@/styles/GlobalStyles'
 
-initializeFirebaseApp()
+firebaseStorage(initializeFirebaseApp())
 export default function App({ Component, pageProps }: AppProps) {
   const { user, isAuthLoading } = useAuthStateListener()
   return (
