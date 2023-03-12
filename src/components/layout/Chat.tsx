@@ -1,6 +1,7 @@
 import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
 import type { useSendMessageType } from '@/src/hooks/firebase/useSendMessage'
 
+import NoUserImage from '@/public/icons/no-user-image.svg'
 import { PageHeader } from '@/src/components/atom/PageHeader'
 import { PageLoading } from '@/src/components/atom/PageLoading'
 import { TextButton } from '@/src/components/atom/TextButton'
@@ -29,11 +30,17 @@ export const Chat = ({
         {isLoading && <PageLoading />}
         {isBlank && <div>初めてのチャットを投稿しましょう</div>}
         {chats.map((chat, i) => {
+          const { message } = chat
+          const { displayName, photoURL } = chat.user || {}
+          const noName = 'NO NAME'
           if (!chat.message) return <></>
           return (
-            <div key={i} className="flex">
-              <div>{chat.uid}: </div>
-              <div>{chat.message}</div>
+            <div key={i} className="flex items-center">
+              <div className="w-4 h-4 border rounded-full text-gray-lighter">
+                <NoUserImage className="w-full h-full" />
+              </div>
+              <div>{displayName} : </div>
+              <div>{message}</div>
             </div>
           )
         })}

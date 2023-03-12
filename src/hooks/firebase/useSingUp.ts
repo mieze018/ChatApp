@@ -1,5 +1,6 @@
 import { getDatabase, push, ref } from '@firebase/database'
 import { FirebaseError } from 'firebase/app'
+import { updateProfile } from 'firebase/auth'
 import router from 'next/router'
 
 import type { FormEvent } from 'react'
@@ -18,13 +19,15 @@ export const useSignUp = () => {
       const dbRef = ref(db, 'user')
       await handleAuthAnonymous().then((user) => {
         const { uid, displayName, photoURL } = user
+        updateProfile(user, {
+          displayName: 'test',
+          photoURL: 'https://placehold.jp/150x150.png',
+        })
         push(dbRef, {
           uid,
           displayName,
           photoURL,
         })
-
-        // ./chatにリダイレクト
         router.push('/chat')
         return user
       })

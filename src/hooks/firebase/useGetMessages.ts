@@ -2,10 +2,17 @@ import { FirebaseError } from 'firebase/app'
 import { getDatabase, ref, onValue, onChildAdded } from 'firebase/database'
 import { useState, useEffect } from 'react'
 
+import type { User } from 'firebase/auth'
+
 import { useError } from '@/src/hooks/firebase/useError'
 
 export const useGetMessages = () => {
-  const [chats, setChats] = useState<{ message: string; uid: string }[]>([])
+  const [chats, setChats] = useState<
+    {
+      message: string
+      user: Pick<User, 'displayName' | 'photoURL' | 'uid'>
+    }[]
+  >([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isBlank, setIsBlank] = useState<boolean>(false)
   const { error, setError } = useError()
@@ -24,8 +31,8 @@ export const useGetMessages = () => {
       })
       return onChildAdded(chatRef, (snapshot) => {
         const value = snapshot.val()
-        const { message, uid } = value
-        setChats((prev) => [...prev, { message, uid }])
+        const { message, user } = value
+        setChats((prev) => [...prev, { message, user }])
         setIsLoading(false)
       })
     } catch (e) {
