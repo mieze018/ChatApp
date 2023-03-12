@@ -6,6 +6,7 @@ const CustomStyles = createGlobalStyle({
   body: {
     WebkitTapHighlightColor: theme`colors.primary`,
     ...tw`antialiased`,
+    color: theme`colors.gray.dark`,
   },
 })
 

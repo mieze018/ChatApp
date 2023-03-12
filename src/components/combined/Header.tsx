@@ -1,24 +1,29 @@
 import React from 'react'
+import tw from 'twin.macro'
 
 import { Button } from '@/src/components/atom/Button'
-import './header.css'
 
-type User = {
-  name: string
-}
+const WrapperHeader = tw.div`flex items-center justify-between px-5 py-4 border-b border-gray-lighter`
+const HeaderLogo = tw.svg`w-8 h-8 inline-block`
+const HeaderTitle = tw.h1`font-bold text-xl leading-none inline-block`
+const WrapperInnerHeader = tw.div`flex gap-x-2 items-center`
+const User = tw.span`text-sm`
 
-interface HeaderProps {
-  user?: User | undefined
+export const Header = ({
+  user,
+  onLogin,
+  onLogout,
+  onCreateAccount,
+}: {
+  user?: { name: string } | undefined
   onLogin: () => void
   onLogout: () => void
   onCreateAccount: () => void
-}
-
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
+}) => (
   <header>
-    <div className="wrapper">
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <WrapperHeader>
+      <WrapperInnerHeader>
+        <HeaderLogo viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <g fill="none" fillRule="evenodd">
             <path
               d="M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z"
@@ -33,22 +38,22 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
               fill="#91BAF8"
             />
           </g>
-        </svg>
-        <h1>Acme</h1>
-      </div>
-      <div>
+        </HeaderLogo>
+        <HeaderTitle>Acme</HeaderTitle>
+      </WrapperInnerHeader>
+      <WrapperInnerHeader>
         {user ? (
           <>
-            <span className="welcome">
+            <User>
               Welcome, <b>{user.name}</b>!
-            </span>
+            </User>
             <Button size="small" onClick={onLogout}>
               ログアウト
             </Button>
           </>
         ) : (
           <>
-            <Button size="small" onClick={onLogin}>
+            <Button size="small" variant="secondary" onClick={onLogin}>
               ログイン
             </Button>
             <Button size="small" onClick={onCreateAccount}>
@@ -56,7 +61,8 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
             </Button>
           </>
         )}
-      </div>
-    </div>
+      </WrapperInnerHeader>
+    </WrapperHeader>
   </header>
 )
+export type HeaderProps = React.ComponentProps<typeof Header>
