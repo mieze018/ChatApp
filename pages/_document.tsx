@@ -8,7 +8,7 @@ import { ServerStyleSheet } from 'styled-components'
 import type { DocumentContext } from 'next/document'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+  static override async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
     const originalRenderPage = ctx.renderPage
     try {
