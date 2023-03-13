@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/react'
-import { decoratorsComponent } from './decorators'
+import '../styles/tailwind.css'
+import React from 'react'
+
+import GlobalStyles from '../styles/GlobalStyles'
 
 const preview: Preview = {
   parameters: {
@@ -17,3 +20,11 @@ const preview: Preview = {
 }
 
 export default preview
+export const decorators = [
+  (Story) => (
+    <>
+      <GlobalStyles />
+      <Story />
+    </>
+  ),
+]

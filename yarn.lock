@@ -3059,6 +3059,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-styling@npm:^0.3.1":
+  version: 0.3.1
+  resolution: "@storybook/addon-styling@npm:0.3.1"
+  peerDependencies:
+    "@storybook/addons": ^6.5.8
+    "@storybook/api": ^6.5.8
+    "@storybook/components": ^6.5.8
+    "@storybook/core-events": ^6.5.8
+    "@storybook/manager-api": ^7.0.0-beta.56
+    "@storybook/theming": ^6.5.8
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    resolve-url-loader: ^5.0.0
+    sass-loader: ^10.4.1
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+    resolve-url-loader:
+      optional: true
+    sass-loader:
+      optional: true
+  checksum: 36a5fe7806d8c040a08287eb4febd634f7c0fcd31d156e6cdb64db312cecf34cbc76451e65e4df19e7f990dbd4cf38e6291227291446522268c66214085e72ae
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-toolbars@npm:7.0.0-rc.1":
   version: 7.0.0-rc.1
   resolution: "@storybook/addon-toolbars@npm:7.0.0-rc.1"
@@ -9937,6 +9964,7 @@ __metadata:
     "@storybook/addon-essentials": ^7.0.0-rc.1
     "@storybook/addon-interactions": ^7.0.0-rc.1
     "@storybook/addon-links": ^7.0.0-rc.1
+    "@storybook/addon-styling": ^0.3.1
     "@storybook/blocks": ^7.0.0-rc.1
     "@storybook/nextjs": ^7.0.0-rc.1
     "@storybook/react": ^7.0.0-rc.1
