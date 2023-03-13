@@ -5,3 +5,4 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 
 yarn lint
 # yarn test
+yarn build
