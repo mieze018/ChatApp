@@ -64,7 +64,7 @@ const Contents = () => (
 )
 export const LoggedIn: Story = {
   args: {
-    user: { name: 'Jane Doe' },
+    user: { displayName: 'Jane Doe' },
     children: <Contents />,
   },
   play: async ({ canvasElement }) => {

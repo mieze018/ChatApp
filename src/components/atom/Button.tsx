@@ -4,7 +4,6 @@ import tw from 'twin.macro'
 interface ButtonProps {
   variant?: 'primary' | 'secondary'
   size?: 'small' | 'medium' | 'large'
-  onClick: () => void
 }
 
 export const Button = styled.button(({ variant = 'primary', size = 'medium' }: ButtonProps) => [
@@ -17,4 +16,5 @@ export const Button = styled.button(({ variant = 'primary', size = 'medium' }: B
   tw`transition-all`,
   tw`hover:shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary`,
   tw`hover:scale-105 active:scale-95`,
+  tw`disabled:bg-gray-lighter disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100`,
 ])

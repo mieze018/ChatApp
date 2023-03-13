@@ -1,30 +1,26 @@
 import tw from 'twin.macro'
 
-import type { HeaderProps } from '@/src/components/combined/Header'
-import type { Dispatch, SetStateAction } from 'react'
+import type { HeaderAppProps } from '@/src/components/combined/HeaderApp'
 
-import { Header } from '@/src/components/combined/Header'
+import { HeaderApp } from '@/src/components/combined/HeaderApp'
 
-const Section = tw.section`text-sm leading-6 py-12 px-5 max-w-screen-md mx-auto`
+const WrapperApp = tw.div`
+h-screen w-screen
+grid [grid-template-rows: auto 1fr]
+break-all text-gray-dark
+`
+
+const Main = tw.main`py-12 px-5 overflow-auto`
 
 export const Layout: React.FC<{
-  user: HeaderProps['user']
+  user: HeaderAppProps['user']
   children: React.ReactNode
-  setUser: Dispatch<SetStateAction<HeaderProps['user']>>
-  onLogin: HeaderProps['onLogin']
-  onLogout: HeaderProps['onLogout']
-  onCreateAccount: HeaderProps['onCreateAccount']
-}> = ({ children, user, setUser }) => {
+  onLogout: HeaderAppProps['onLogout']
+}> = ({ children, user, onLogout }) => {
   return (
-    <article>
-      <Header
-        user={user}
-        onLogin={() => setUser({ name: 'Jane Doe' })}
-        onLogout={() => setUser(undefined)}
-        onCreateAccount={() => setUser({ name: 'Jane Doe' })}
-      />
-
-      <Section>{children}</Section>
-    </article>
+    <WrapperApp>
+      <HeaderApp user={user} onLogout={onLogout} />
+      <Main>{children}</Main>
+    </WrapperApp>
   )
 }

@@ -1,21 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Header } from '@/src/components/combined/Header'
+import { HeaderApp } from '@/src/components/combined/HeaderApp'
 
-const meta: Meta<typeof Header> = {
-  component: Header,
+const meta: Meta<typeof HeaderApp> = {
+  component: HeaderApp,
   parameters: {
     layout: 'fullscreen',
   },
 }
 
 export default meta
-type Story = StoryObj<typeof Header>
+type Story = StoryObj<typeof HeaderApp>
 
 export const LoggedIn: Story = {
   args: {
     user: {
-      name: 'Jane Doe',
+      displayName: 'Jane Doe',
     },
   },
 }
