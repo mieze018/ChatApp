@@ -12,7 +12,10 @@ export const Page = ({ isAuthLoading, user }: AppPropsType) => {
 
   if (isAuthLoading || !user) return <PageLoading />
   return (
-    <Layout user={{ displayName: user.displayName ?? '' }} onLogout={() => null}>
+    <Layout
+      user={{ displayName: user.displayName ?? '', photoURL: user.photoURL ?? '' }}
+      onLogout={() => null}
+    >
       <Chat
         chats={chats}
         isLoading={isLoading}

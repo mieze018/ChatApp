@@ -15,7 +15,8 @@ type Story = StoryObj<typeof HeaderApp>
 export const LoggedIn: Story = {
   args: {
     user: {
-      displayName: 'Jane Doe',
+      displayName: 'ほげーた',
+      photoURL: 'https://source.unsplash.com/random/100x100',
     },
   },
 }
