@@ -2,6 +2,7 @@ import { within, userEvent } from '@storybook/testing-library'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { LoggedIn as HeaderLoggedIn } from '@/src/components/combined/HeaderApp.stories'
 import { Layout } from '@/src/components/layout/Layout'
 
 const meta: Meta<typeof Layout> = {
@@ -64,7 +65,7 @@ const Contents = () => (
 )
 export const LoggedIn: Story = {
   args: {
-    user: { displayName: 'Jane Doe' },
+    ...HeaderLoggedIn.args,
     children: <Contents />,
   },
   play: async ({ canvasElement }) => {

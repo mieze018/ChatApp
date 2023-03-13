@@ -20,7 +20,7 @@ export const HeaderApp = ({
 }) => (
   <Header>
     <WrapperInnerHeader>
-      <ChatIcon tw="w-8 h-8 text-primary" />
+      <ChatIcon css={tw`w-8 h-8 text-primary`} />
       <HeaderTitle>SimpleChat</HeaderTitle>
     </WrapperInnerHeader>
     <WrapperInnerHeader>

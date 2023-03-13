@@ -27,14 +27,14 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
         <Card>
           <p className="my-8 text-2xl font-semibold"> {microCopies.チャットを始めましょう}</p>
 
-          <Label>
+          <Label css={tw`cursor-pointer`}>
             <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
 
             <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />
             <span className="sr-only t-2">{microCopies.ユーザーアイコンを選択してください}</span>
           </Label>
 
-          <Label css={tw`cursor-pointer`}>
+          <Label>
             <TextInput
               type="text"
               value={displayName}

@@ -1,6 +1,7 @@
 import tw from 'twin.macro'
 
 import type { HeaderAppProps } from '@/src/components/combined/HeaderApp'
+import type { authUserType } from '@/src/types/firebaseDB'
 
 import { HeaderApp } from '@/src/components/combined/HeaderApp'
 
@@ -13,7 +14,7 @@ break-all text-gray-dark
 const Main = tw.main`py-12 px-5 overflow-auto`
 
 export const Layout: React.FC<{
-  user: HeaderAppProps['user']
+  user: Pick<authUserType, 'displayName' | 'photoURL'>
   children: React.ReactNode
   onLogout: HeaderAppProps['onLogout']
 }> = ({ children, user, onLogout }) => {
@@ -24,3 +25,4 @@ export const Layout: React.FC<{
     </WrapperApp>
   )
 }
+export type LayoutProps = React.ComponentProps<typeof Layout>
