@@ -4,4 +4,5 @@ export const microCopies = {
   ユーザーアイコンを選択してください: 'ユーザーアイコンを選択してください',
   お名前: 'お名前',
   chatBlank: '初めてのチャットを投稿しましょう',
+  noName: 'No Name',
 }

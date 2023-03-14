@@ -55,8 +55,7 @@ export const Default: Story = {
         message: 'こんにちは',
         user: {
           displayName: 'なまえ',
-          photoURL:
-            'https://firebasestorage.googleapis.com/v0/b/chatapp-1f82e.appspot.com/o/user%2FYl4WMueC7fPJOTydpXAoW0cfkN32%2FphotoURL.png?alt=media&token=3226eb7a-07b1-48e1-aad6-34076d752485',
+          photoURL: '',
           uid: 'Yl4WMueC7fPJOTydpXAoW0cfkN32',
         },
       },
