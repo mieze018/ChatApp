@@ -26,11 +26,7 @@ export const LayoutChat: React.FC<
     handleSendMessage: useSendMessageType['handleSendMessage']
   }
 > = ({ user, onLogout, chats, isLoading, isBlank, message, setMessage, handleSendMessage }) => (
-  <Layout
-    user={{ displayName: user?.displayName ?? '', photoURL: user?.photoURL ?? '' }}
-    onLogout={onLogout}
-    isOverflowYHidden={true}
-  >
+  <Layout user={user} onLogout={onLogout} isOverflowYHidden={true}>
     <WrapperChat>
       <ScrollWrapper>
         <ChatMessageList chats={chats} user={user} isLoading={isLoading} isBlank={isBlank} />
