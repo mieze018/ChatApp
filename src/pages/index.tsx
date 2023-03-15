@@ -14,6 +14,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
   const { message, setMessage, handleSendMessage } = usePostMessage()
   const { deleteAccount } = useAuthDelete()
   const isSubmitBlocked = !displayName || !file || !!progress
+  const isAuthAndPhotoUploaded = user && !progress
   const userToPass = user && {
     displayName: user?.displayName,
     photoURL: user?.photoURL,
@@ -25,7 +26,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
       createdAt: timestampToRelativeDate(chat.createdAt),
     }
   })
-  if (user) {
+  if (isAuthAndPhotoUploaded) {
     return (
       <LayoutChat
         chats={chatsToPath}

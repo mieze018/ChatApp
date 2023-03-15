@@ -1,4 +1,3 @@
-import { getDatabase, push, ref } from '@firebase/database'
 import { FirebaseError } from 'firebase/app'
 import { updateProfile } from 'firebase/auth'
 import {
@@ -21,6 +20,11 @@ export const useSignUp = () => {
   const [progress, setProgress] = useState<number | undefined>(undefined)
   const [photoURL, setPhotoURL] = useState<string>('')
   const { handleAuthAnonymous } = useAuthAnonymous()
+  const resetFormValue = () => {
+    setProgress(undefined)
+    setFile(undefined)
+    setDisplayName('')
+  }
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!displayName) {
@@ -32,78 +36,28 @@ export const useSignUp = () => {
       return
     }
     try {
-      const db = getDatabase()
       const storage = getStorage()
-      // Create the file metadata
-      /** @type {any} */
-      const metadata = {
-        contentType: 'image/png',
-      }
-      const dbRef = ref(db, 'user')
+      const metadata = { contentType: 'image/png' }
       await handleAuthAnonymous().then((user) => {
         const { uid } = user
-        // アップロードされた画像をstorageに保存し、updateProfileのphotoURLにURLを入れる
         const photoRef = storageRef(storage, `user/${uid}/photoURL.png`)
         photoRef.fullPath
         const uploadTask = uploadBytesResumable(photoRef, file, metadata)
-
-        // Listen for state changes, errors, and completion of the upload.
         uploadTask.on(
           'state_changed',
-          (snapshot) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-            switch (snapshot.state) {
-              case 'paused':
-                break
-              case 'running':
-                break
-            }
-          },
-          (error) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-              case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                setError(error)
-                break
-              case 'storage/canceled':
-                // User canceled the upload
-                setError(error)
-                break
-              case 'storage/unknown':
-                // Unknown error occurred, inspect error.serverResponse
-                setError(error)
-                break
-            }
-          },
+          (snapshot) => setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
+          (error) => setError(error),
           () => {
-            // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               setPhotoURL(downloadURL)
-              setProgress(undefined)
-              setFile(undefined)
-              setDisplayName('')
-
-              updateProfile(user, {
-                displayName: displayName,
-                photoURL: downloadURL,
-              })
-              push(dbRef, {
-                uid,
-                displayName,
-                downloadURL,
-              })
+              resetFormValue()
+              updateProfile(user, { displayName: displayName, photoURL: downloadURL })
             })
           }
         )
-        return user
       })
     } catch (e) {
-      if (e instanceof FirebaseError) {
-        setError(e)
-      }
+      if (e instanceof FirebaseError) setError(e)
     }
   }
 
