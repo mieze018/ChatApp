@@ -9,7 +9,11 @@ export const ChatInput: React.FC<{
   handleSendMessage: LayoutChatProps['handleSendMessage']
 }> = ({ message, setMessage, handleSendMessage }) => (
   <form onSubmit={handleSendMessage}>
-    <TextInput value={message} onChange={(e) => setMessage(e.target.value)} autoComplete="off" />
+    <TextInput
+      value={message ?? ''}
+      onChange={(e) => setMessage(e.target.value)}
+      autoComplete="off"
+    />
     <TextButton type="submit">送信</TextButton>
   </form>
 )
