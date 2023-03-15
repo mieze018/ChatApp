@@ -6,7 +6,7 @@ import { PageLoading } from '@/src/components/atom/PageLoading'
 import { ChatMessage } from '@/src/components/combined/ChatMessage'
 import { microCopies } from '@/src/libs/microCopies'
 
-const WrapperChatList = tw.div`grid gap-2 overflow-y-auto`
+const WrapperChatList = tw.div`grid gap-2 max-w-screen-lg mx-auto py-4 px-2 md:px-4 lg:px-0`
 const WrapperBlank = tw.div``
 
 export const ChatMessageList: React.FC<{

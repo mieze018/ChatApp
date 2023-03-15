@@ -9,9 +9,11 @@ import { ChatInput } from '@/src/components/combined/ChatInput'
 import { ChatMessageList } from '@/src/components/combined/ChatMessageList'
 import { Layout } from '@/src/components/layout/Layout'
 
-const WrapperChat = tw.div`h-full w-full
-grid items-center justify-center gap-y-4 [grid-template-rows: 1fr max-content]
-content-between`
+const WrapperChat = tw.div`h-full w-full 
+grid items-center justify-center [grid-template-rows: 1fr max-content] content-between
+px-4 mx-auto
+`
+const ScrollWrapper = tw.div`overflow-y-auto w-screen h-[inherit]`
 
 export const LayoutChat: React.FC<
   LayoutProps & {
@@ -27,9 +29,12 @@ export const LayoutChat: React.FC<
   <Layout
     user={{ displayName: user?.displayName ?? '', photoURL: user?.photoURL ?? '' }}
     onLogout={onLogout}
+    isOverflowYHidden={true}
   >
     <WrapperChat>
-      <ChatMessageList chats={chats} user={user} isLoading={isLoading} isBlank={isBlank} />
+      <ScrollWrapper>
+        <ChatMessageList chats={chats} user={user} isLoading={isLoading} isBlank={isBlank} />
+      </ScrollWrapper>
       <ChatInput message={message} setMessage={setMessage} handleSendMessage={handleSendMessage} />
     </WrapperChat>
   </Layout>
