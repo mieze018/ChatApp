@@ -13,7 +13,7 @@ const StyleChatMessageTextMine = tw`text-white rounded-tr-none bg-secondary roun
 const ChatMessageDisplayName = tw.div`text-xs text-gray-light line-clamp-1`
 const WrapperNameAndMessage = tw.div`flex flex-col`
 const StyleWrapperNameAndMessage = tw`items-end`
-const ChatMessageCreatedAt = tw.div`text-xs text-gray-light self-end pb-1`
+const ChatMessageCreatedAt = tw.div`text-xs text-gray-light self-end pb-1 shrink-0 `
 
 export const ChatMessage: React.FC<{
   message: LayoutChatProps['message']
