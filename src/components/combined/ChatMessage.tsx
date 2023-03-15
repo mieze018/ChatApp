@@ -8,9 +8,11 @@ import { microCopies } from '@/src/libs/microCopies'
 
 const ChatMessageWrapper = tw.div`flex gap-x-2`
 const StyleChatMessageMine = tw`flex-row-reverse`
-const ChatMessageText = tw.div`bg-gray-lighter rounded-3xl rounded-tl-none p-4 h-fit`
+const ChatMessageText = tw.div`bg-gray-lighter rounded-3xl rounded-tl-none p-4 h-fit w-fit`
 const StyleChatMessageTextMine = tw`text-white rounded-tr-none bg-secondary rounded-tl-3xl`
-const ChatMessageDisplayName = tw.div`text-xs`
+const ChatMessageDisplayName = tw.div`text-xs text-gray-light line-clamp-1`
+const WrapperNameAndMessage = tw.div`flex flex-col`
+const StyleWrapperNameAndMessage = tw`items-end`
 
 export const ChatMessage: React.FC<{
   message: LayoutChatProps['message']
@@ -20,9 +22,11 @@ export const ChatMessage: React.FC<{
 }> = ({ message, photoURL, displayName, isMyMessage }) => (
   <ChatMessageWrapper css={[isMyMessage && StyleChatMessageMine]}>
     <ChatMessageAvatar photoURL={photoURL} displayName={displayName} />
-    <div>
-      <ChatMessageDisplayName>{displayName ?? microCopies.noName} : </ChatMessageDisplayName>
+    <WrapperNameAndMessage css={[isMyMessage && StyleWrapperNameAndMessage]}>
+      <ChatMessageDisplayName title={displayName ?? ''}>
+        {displayName ?? microCopies.noName}{' '}
+      </ChatMessageDisplayName>
       <ChatMessageText css={[isMyMessage && StyleChatMessageTextMine]}>{message}</ChatMessageText>
-    </div>
+    </WrapperNameAndMessage>
   </ChatMessageWrapper>
 )
