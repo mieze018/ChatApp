@@ -25,11 +25,11 @@ export const useSignUp = () => {
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!displayName) {
-      // setError(new Error('名前を入力してください'))
+      setError(new Error('名前を入力してください'))
       return
     }
     if (!file) {
-      // setError(new Error('画像を選択してください'))
+      setError(new Error('画像を選択してください'))
       return
     }
     try {
