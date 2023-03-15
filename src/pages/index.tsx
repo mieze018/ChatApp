@@ -17,7 +17,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
     <LayoutSignIn
       user={userToPass}
       //TODO: firebaseのユーザー削除メソッドを実装する
-      isLoading={isAuthLoading || user}
+      isLoading={!!(isAuthLoading || user)}
       onLogout={() => null}
       handleSignUp={handleSignUp}
       setDisplayName={setDisplayName}
