@@ -5,7 +5,7 @@ import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
 import type { usePostMessageType } from '@/src/hooks/firebase/usePostMessage'
 import type { authUserType, chatType } from '@/src/types/firebaseDB'
 
-import { ChatInput } from '@/src/components/combined/ChatInput'
+import { ChatInput } from '@/src/components/combined/ChatMessageInput'
 import { ChatMessageList } from '@/src/components/combined/ChatMessageList'
 import { Layout } from '@/src/components/layout/Layout'
 

@@ -8,7 +8,7 @@ import ChatIcon from '@/public/icons/chat-bubble-lef-right.svg'
 import { AvatarWrapper } from '@/src/components/atom/AvatarWrapper'
 import { Button } from '@/src/components/atom/Button'
 
-const Header = tw.header`flex items-center justify-between px-5 py-4 border-b border-black/20 h-fit`
+const Header = tw.header`flex gap-x-4 items-center justify-between px-5 py-4 border-b border-black/20 h-fit`
 const HeaderTitle = tw.h1`font-bold text-xl leading-none inline-block`
 const WrapperInnerHeader = tw.div`flex gap-x-2 items-center shrink-0`
 const UserWrapper = tw.span`text-sm flex items-center  gap-x-2`
