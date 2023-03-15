@@ -24,7 +24,7 @@ const ButtonWrapper = tw.div`grid items-center gap-1 justify-items-center`
 
 export const LayoutSignIn: React.FC<
   LayoutProps & {
-    user: authUserType
+    user: authUserType | undefined
     handleSignUp: useSignUpType['handleSignUp']
     setDisplayName: useSignUpType['setDisplayName']
     displayName: useSignUpType['displayName']
