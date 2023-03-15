@@ -57,5 +57,29 @@ module.exports = {
     ],
     // consoleを禁止
     'no-console': 'error',
+    // 行間を開ける
+    'padding-line-between-statements': [
+      'error',
+      {
+        blankLine: 'always',
+        prev: '*',
+        next: 'export',
+      },
+      {
+        blankLine: 'any',
+        prev: 'export',
+        next: 'export',
+      },
+      {
+        blankLine: 'always',
+        prev: 'import',
+        next: '*',
+      },
+      {
+        blankLine: 'any',
+        prev: 'import',
+        next: 'import',
+      },
+    ],
   },
 }
