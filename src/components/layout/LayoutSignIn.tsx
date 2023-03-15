@@ -18,7 +18,7 @@ grid items-center justify-center
 px-4 mx-auto
 `
 const SignInHeader = tw.h2`my-8 text-2xl font-semibold text-center`
-const Card = tw.div`grid gap-8 items-center justify-center p-10 bg-white rounded shadow-md max-w-sm mx-auto`
+const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white rounded shadow-md max-w-sm mx-auto`
 const Label = tw.label`grid justify-items-center`
 const ButtonWrapper = tw.div`grid items-center gap-1 justify-items-center`
 
@@ -47,37 +47,35 @@ export const LayoutSignIn: React.FC<
 }) => (
   <Layout user={user} onLogout={onLogout}>
     <WrapperSignIn>
-      <form onSubmit={handleSignUp}>
-        <Card>
-          <SignInHeader>{microCopies.signInHeader}</SignInHeader>
+      <FormCard onSubmit={handleSignUp}>
+        <SignInHeader>{microCopies.signInHeader}</SignInHeader>
 
-          <Label css={tw`cursor-pointer`}>
-            <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
+        <Label css={tw`cursor-pointer`}>
+          <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
 
-            <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />
-            <span className="sr-only t-2">{microCopies.srAvatarInput}</span>
-          </Label>
+          <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />
+          <span className="sr-only t-2">{microCopies.srAvatarInput}</span>
+        </Label>
 
-          <Label>
-            <TextInput
-              type="text"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              required
-              className="p-3 mb-5 border-2 rounded outline-none w-80 focus:border-purple-700"
-              placeholder={microCopies.お名前}
-            />
-          </Label>
-          <ButtonWrapper>
-            <Button type="submit" disabled={isSubmitBlocked}>
-              {microCopies.signInSubmit}
-            </Button>
-            <progress value={progress} max="100"></progress>
-          </ButtonWrapper>
+        <Label>
+          <TextInput
+            type="text"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+            className="p-3 mb-5 border-2 rounded outline-none w-80 focus:border-purple-700"
+            placeholder={microCopies.お名前}
+          />
+        </Label>
+        <ButtonWrapper>
+          <Button type="submit" disabled={isSubmitBlocked}>
+            {microCopies.signInSubmit}
+          </Button>
+          <progress value={progress} max="100"></progress>
+        </ButtonWrapper>
 
-          {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
-        </Card>
-      </form>
+        {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
+      </FormCard>
     </WrapperSignIn>
   </Layout>
 )
