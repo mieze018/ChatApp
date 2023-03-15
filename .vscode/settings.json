@@ -23,5 +23,5 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["autodocs", "firebasestorage", "svgr"]
+  "cSpell.words": ["autodocs", "firebasestorage", "firestore", "svgr"]
 }
