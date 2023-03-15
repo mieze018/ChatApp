@@ -2,9 +2,8 @@ import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
 import type { LayoutChat } from '@/src/components/layout/LayoutChat'
-import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
 import type { useSignUpType } from '@/src/hooks/firebase/useSingUp'
-import type { authUserType, chatType } from '@/src/types/firebaseDB'
+import type { authUserType } from '@/src/types/firebaseDB'
 
 import NoUserImageIcon from '@/public/icons/no-user-image.svg'
 import { Button } from '@/src/components/atom/Button'
@@ -25,9 +24,6 @@ const ButtonWrapper = tw.div`grid items-center gap-1 justify-items-center`
 export const LayoutSignIn: React.FC<
   LayoutProps & {
     user: authUserType
-    chats: chatType[]
-    isLoading: useGetMessagesType['isLoading']
-    isBlank: useGetMessagesType['isBlank']
     handleSignUp: useSignUpType['handleSignUp']
     setDisplayName: useSignUpType['setDisplayName']
     displayName: useSignUpType['displayName']
