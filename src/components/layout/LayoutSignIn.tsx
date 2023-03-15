@@ -5,13 +5,12 @@ import type { LayoutProps } from '@/src/components/layout/Layout'
 import type { useSignUpType } from '@/src/hooks/firebase/useSingUp'
 import type { authUserType } from '@/src/types/firebaseDB'
 
-import NoUserImageIcon from '@/public/icons/no-user-image.svg'
-import { Button } from '@/src/components/atom/Button'
 import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
-import { InputFile } from '@/src/components/atom/InputFIle'
-import { TextInput } from '@/src/components/atom/TextInput'
 import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
 import { PageLoading } from '@/src/components/combined/PageLoading'
+import { SignInInputDisplayName } from '@/src/components/combined/SignInInputDisplayName'
+import { SignInInputImage } from '@/src/components/combined/SignInInputImage'
+import { SignInSubmit } from '@/src/components/combined/SignInSubmit'
 import { Layout } from '@/src/components/layout/Layout'
 import { microCopies } from '@/src/libs/microCopies'
 
@@ -21,8 +20,6 @@ px-4 mx-auto
 `
 const SignInHeader = tw.h2`my-8 text-2xl font-semibold text-center`
 const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white rounded shadow-md max-w-sm mx-auto`
-const Label = tw.label`grid justify-items-center`
-const ButtonWrapper = tw.div`grid items-center gap-1 justify-items-center`
 
 export const LayoutSignIn: React.FC<
   LayoutProps & {
@@ -68,36 +65,3 @@ export const LayoutSignIn: React.FC<
   </Layout>
 )
 export type LayoutSignInProps = React.ComponentProps<typeof LayoutSignIn>
-
-const SignInInputImage: React.FC<Pick<LayoutSignInProps, 'setFile'>> = ({ setFile }) => (
-  <Label css={tw`cursor-pointer`}>
-    {/* TODO: アップロード画像のプレビュー表示 */}
-    <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
-
-    <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />
-    <span className="sr-only t-2">{microCopies.srAvatarInput}</span>
-  </Label>
-)
-const SignInInputDisplayName: React.FC<
-  Pick<LayoutSignInProps, 'displayName' | 'setDisplayName'>
-> = ({ displayName, setDisplayName }) => (
-  <Label>
-    <TextInput
-      type="text"
-      value={displayName}
-      onChange={(e) => setDisplayName(e.target.value)}
-      required
-      className="p-3 mb-5 border-2 rounded outline-none w-80 focus:border-purple-700"
-      placeholder={microCopies.signInDisplayNamePlaceholder}
-    />
-  </Label>
-)
-const SignInSubmit: React.FC<Pick<LayoutSignInProps, 'isSubmitBlocked'>> = ({
-  isSubmitBlocked,
-}) => (
-  <ButtonWrapper>
-    <Button type="submit" disabled={isSubmitBlocked}>
-      {microCopies.signInSubmit}
-    </Button>
-  </ButtonWrapper>
-)
