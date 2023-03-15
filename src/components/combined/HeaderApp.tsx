@@ -2,6 +2,8 @@ import Image from 'next/image'
 import React from 'react'
 import tw from 'twin.macro'
 
+import type { authUserType } from '@/src/types/firebaseDB'
+
 import ChatIcon from '@/public/icons/chat-bubble-lef-right.svg'
 import { AvatarWrapper } from '@/src/components/atom/AvatarWrapper'
 import { Button } from '@/src/components/atom/Button'
@@ -15,7 +17,7 @@ export const HeaderApp = ({
   user,
   onLogout,
 }: {
-  user: { displayName: string; photoURL: string } | undefined
+  user: Pick<authUserType, 'displayName' | 'photoURL'> | undefined
   onLogout: () => void
 }) => (
   <Header>

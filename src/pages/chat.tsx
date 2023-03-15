@@ -1,8 +1,7 @@
 import type { AppPropsType } from '@/src/pages/_app'
 
 import { PageLoading } from '@/src/components/atom/PageLoading'
-import { Chat } from '@/src/components/combined/Chat'
-import { Layout } from '@/src/components/layout/Layout'
+import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
 import { useSendMessage } from '@/src/hooks/firebase/useSendMessage'
 
@@ -12,19 +11,16 @@ export const Page = ({ isAuthLoading, user }: AppPropsType) => {
 
   if (isAuthLoading || !user) return <PageLoading />
   return (
-    <Layout
-      user={{ displayName: user.displayName ?? '', photoURL: user.photoURL ?? '' }}
+    <LayoutChat
+      chats={chats}
+      isLoading={isLoading}
+      isBlank={isBlank}
+      message={message}
+      setMessage={setMessage}
+      handleSendMessage={handleSendMessage}
+      user={user}
       onLogout={() => null}
-    >
-      <Chat
-        chats={chats}
-        isLoading={isLoading}
-        isBlank={isBlank}
-        message={message}
-        setMessage={setMessage}
-        handleSendMessage={handleSendMessage}
-      />
-    </Layout>
+    />
   )
 }
 

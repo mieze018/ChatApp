@@ -15,7 +15,7 @@ const Main = tw.main`overflow-auto`
 
 export const Layout: React.FC<{
   user: Pick<authUserType, 'displayName' | 'photoURL'>
-  children: React.ReactNode
+  children?: React.ReactNode
   onLogout: HeaderAppProps['onLogout']
 }> = ({ children, user, onLogout }) => {
   return (
