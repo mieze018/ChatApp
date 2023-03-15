@@ -28,7 +28,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
         setMessage={setMessage}
         handleSendMessage={handleSendMessage}
         user={user}
-        onLogout={() => deleteAccount}
+        onLogout={deleteAccount}
       />
     )
   }
@@ -36,7 +36,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
     <LayoutSignIn
       user={userToPass}
       isLoading={!!(isAuthLoading || user)}
-      onLogout={() => deleteAccount}
+      onLogout={deleteAccount}
       handleSignUp={handleSignUp}
       setDisplayName={setDisplayName}
       displayName={displayName}

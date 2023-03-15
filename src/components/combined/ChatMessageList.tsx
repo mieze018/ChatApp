@@ -15,7 +15,7 @@ export const ChatMessageList: React.FC<{
   isLoading: LayoutChatProps['isLoading']
   isBlank: LayoutChatProps['isBlank']
 }> = ({ chats, user, isLoading, isBlank }) => (
-  // TODO チャットが増えたら自動で最下部にスクロールする
+  // TODO ページ読み込み時とチャットが増えたら自動で最下部にスクロールする
   <WrapperChatList>
     {isLoading && <PageLoading />}
     {isBlank && <WrapperBlank>{microCopies.chatBlank}</WrapperBlank>}
