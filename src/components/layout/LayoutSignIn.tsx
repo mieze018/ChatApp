@@ -41,6 +41,7 @@ export const LayoutSignIn: React.FC<
   handleSignUp,
   setDisplayName,
   displayName,
+  file,
   setFile,
   error,
   progress,
@@ -53,11 +54,10 @@ export const LayoutSignIn: React.FC<
       ) : (
         <FormCard onSubmit={handleSignUp}>
           <SignInHeader>{microCopies.signInHeader}</SignInHeader>
-          <SignInInputImage setFile={setFile} />
+          <SignInInputImage setFile={setFile} file={file} />
           <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
           <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
           {progress && <OverRayProgress progressPercentage={progress} />}
-          {progress > 0 && <OverRayProgress progressPercentage={progress} />}
           {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
         </FormCard>
       )}

@@ -18,9 +18,8 @@ export const useSignUp = () => {
   const { error, setError } = useError()
   const [displayName, setDisplayName] = useState<string>('')
   const [file, setFile] = useState<File>()
-  const [progress, setProgress] = useState<number>(0)
+  const [progress, setProgress] = useState<number | undefined>(undefined)
   const [photoURL, setPhotoURL] = useState<string>('')
-
   const { handleAuthAnonymous } = useAuthAnonymous()
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
