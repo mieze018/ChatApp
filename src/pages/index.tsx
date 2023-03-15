@@ -2,6 +2,7 @@ import type { AppPropsType } from '@/src/pages/_app'
 
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
+import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
 import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
 import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
@@ -10,6 +11,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
   const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp()
   const { chats, isLoading, isBlank } = useGetMessages()
   const { message, setMessage, handleSendMessage } = usePostMessage()
+  const { deleteAccount } = useAuthDelete()
   const isSubmitBlocked = !displayName || !file || progress > 0
   const userToPass = user && {
     displayName: user?.displayName,
@@ -26,7 +28,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
         setMessage={setMessage}
         handleSendMessage={handleSendMessage}
         user={user}
-        onLogout={() => null}
+        onLogout={() => deleteAccount}
       />
     )
   }
@@ -34,8 +36,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
     <LayoutSignIn
       user={userToPass}
       isLoading={!!(isAuthLoading || user)}
-      //TODO: firebaseのユーザー削除メソッドを実装する
-      onLogout={() => null}
+      onLogout={() => deleteAccount}
       handleSignUp={handleSignUp}
       setDisplayName={setDisplayName}
       displayName={displayName}

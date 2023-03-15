@@ -10,7 +10,7 @@ export const useAuthStateListener = () => {
   onAuthStateChanged(auth, (authUser) => {
     console.log(authUser)
     setUser(authUser)
-    setIsLoading(authUser)
+    setIsLoading(false)
   })
 
   return { user, isAuthLoading: isLoading }

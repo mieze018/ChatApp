@@ -8,15 +8,11 @@ export const useAuthDelete = () => {
   const deleteAccount = () => {
     const auth = getAuth()
     if (!auth.currentUser) return
-    deleteUser(auth.currentUser)
-      .then(function () {
-        //削除が成功したときの処理
-      })
-      .catch((e) => {
-        if (e instanceof FirebaseError) {
-          setError(e)
-        }
-      })
+    deleteUser(auth.currentUser).catch((e) => {
+      if (e instanceof FirebaseError) {
+        setError(e)
+      }
+    })
   }
   return { deleteAccount, error }
 }
