@@ -2,7 +2,7 @@ import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
 import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
-import type { useSendMessageType } from '@/src/hooks/firebase/useSendMessage'
+import type { usePostMessageType } from '@/src/hooks/firebase/usePostMessage'
 import type { authUserType, chatType } from '@/src/types/firebaseDB'
 
 import { ChatInput } from '@/src/components/combined/ChatInput'
@@ -22,8 +22,8 @@ export const LayoutChat: React.FC<
     isLoading: useGetMessagesType['isLoading']
     isBlank: useGetMessagesType['isBlank']
     message: chatType['message']
-    setMessage: useSendMessageType['setMessage']
-    handleSendMessage: useSendMessageType['handleSendMessage']
+    setMessage: usePostMessageType['setMessage']
+    handleSendMessage: usePostMessageType['handleSendMessage']
   }
 > = ({ user, onLogout, chats, isLoading, isBlank, message, setMessage, handleSendMessage }) => (
   <Layout user={user} onLogout={onLogout} isOverflowYHidden={true}>

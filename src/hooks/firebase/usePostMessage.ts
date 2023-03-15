@@ -7,7 +7,7 @@ import type { FormEvent } from 'react'
 import { useAuthAnonymous } from '@/src/hooks/firebase/useAuthAnonymous'
 import { useError } from '@/src/hooks/firebase/useError'
 
-export const useSendMessage = () => {
+export const usePostMessage = () => {
   const [message, setMessage] = useState<string>('')
   const { user } = useAuthAnonymous()
   const { error, setError } = useError()
@@ -34,4 +34,4 @@ export const useSendMessage = () => {
   }
   return { message, error, setMessage, handleSendMessage }
 }
-export type useSendMessageType = ReturnType<typeof useSendMessage>
+export type usePostMessageType = ReturnType<typeof usePostMessage>

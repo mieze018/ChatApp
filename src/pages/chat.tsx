@@ -3,11 +3,11 @@ import type { AppPropsType } from '@/src/pages/_app'
 import { PageLoading } from '@/src/components/combined/PageLoading'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
-import { useSendMessage } from '@/src/hooks/firebase/useSendMessage'
+import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 
 export const Page = ({ isAuthLoading, user }: AppPropsType) => {
   const { chats, isLoading, isBlank } = useGetMessages()
-  const { message, setMessage, handleSendMessage } = useSendMessage()
+  const { message, setMessage, handleSendMessage } = usePostMessage()
 
   if (isAuthLoading || !user) return <PageLoading />
   return (
