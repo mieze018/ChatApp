@@ -1,7 +1,7 @@
+import React from 'react'
 import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
-import type { LayoutChat } from '@/src/components/layout/LayoutChat'
 import type { useSignUpType } from '@/src/hooks/firebase/useSingUp'
 import type { authUserType } from '@/src/types/firebaseDB'
 
@@ -10,6 +10,7 @@ import { Button } from '@/src/components/atom/Button'
 import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
 import { InputFile } from '@/src/components/atom/InputFIle'
 import { TextInput } from '@/src/components/atom/TextInput'
+import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
 import { PageLoading } from '@/src/components/combined/PageLoading'
 import { Layout } from '@/src/components/layout/Layout'
 import { microCopies } from '@/src/libs/microCopies'
@@ -55,36 +56,48 @@ export const LayoutSignIn: React.FC<
       ) : (
         <FormCard onSubmit={handleSignUp}>
           <SignInHeader>{microCopies.signInHeader}</SignInHeader>
-
-          <Label css={tw`cursor-pointer`}>
-            {/* TODO: アップロード画像のプレビュー表示 */}
-            <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
-
-            <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />
-            <span className="sr-only t-2">{microCopies.srAvatarInput}</span>
-          </Label>
-
-          <Label>
-            <TextInput
-              type="text"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              required
-              className="p-3 mb-5 border-2 rounded outline-none w-80 focus:border-purple-700"
-              placeholder={microCopies.signInDisplayNamePlaceholder}
-            />
-          </Label>
-          <ButtonWrapper>
-            <Button type="submit" disabled={isSubmitBlocked}>
-              {microCopies.signInSubmit}
-            </Button>
-            <progress value={progress} max="100"></progress>
-          </ButtonWrapper>
-
+          <SignInInputImage setFile={setFile} />
+          <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
+          <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
+          {progress && <OverRayProgress progressPercentage={progress} />}
+          {progress > 0 && <OverRayProgress progressPercentage={progress} />}
           {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
         </FormCard>
       )}
     </WrapperSignIn>
   </Layout>
 )
-export type LayoutChatProps = React.ComponentProps<typeof LayoutChat>
+export type LayoutSignInProps = React.ComponentProps<typeof LayoutSignIn>
+
+const SignInInputImage: React.FC<Pick<LayoutSignInProps, 'setFile'>> = ({ setFile }) => (
+  <Label css={tw`cursor-pointer`}>
+    {/* TODO: アップロード画像のプレビュー表示 */}
+    <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
+
+    <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />
+    <span className="sr-only t-2">{microCopies.srAvatarInput}</span>
+  </Label>
+)
+const SignInInputDisplayName: React.FC<
+  Pick<LayoutSignInProps, 'displayName' | 'setDisplayName'>
+> = ({ displayName, setDisplayName }) => (
+  <Label>
+    <TextInput
+      type="text"
+      value={displayName}
+      onChange={(e) => setDisplayName(e.target.value)}
+      required
+      className="p-3 mb-5 border-2 rounded outline-none w-80 focus:border-purple-700"
+      placeholder={microCopies.signInDisplayNamePlaceholder}
+    />
+  </Label>
+)
+const SignInSubmit: React.FC<Pick<LayoutSignInProps, 'isSubmitBlocked'>> = ({
+  isSubmitBlocked,
+}) => (
+  <ButtonWrapper>
+    <Button type="submit" disabled={isSubmitBlocked}>
+      {microCopies.signInSubmit}
+    </Button>
+  </ButtonWrapper>
+)

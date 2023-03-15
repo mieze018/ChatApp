@@ -39,3 +39,10 @@ export const OnLoading: Story = {
     isLoading: true,
   },
 }
+export const OnProgress: Story = {
+  args: {
+    ...Default.args,
+    progress: 50,
+    isSubmitBlocked: true,
+  },
+}
