@@ -1,17 +1,35 @@
 import type { AppPropsType } from '@/src/pages/_app'
 
+import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
+import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
+import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
 
 export default function Home({ isAuthLoading, user }: AppPropsType) {
   const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp()
+  const { chats, isLoading, isBlank } = useGetMessages()
+  const { message, setMessage, handleSendMessage } = usePostMessage()
   const isSubmitBlocked = !displayName || !file || progress > 0
   const userToPass = user && {
     displayName: user?.displayName,
     photoURL: user?.photoURL,
     uid: user?.uid,
   }
-
+  if (user) {
+    return (
+      <LayoutChat
+        chats={chats}
+        isLoading={isLoading}
+        isBlank={isBlank}
+        message={message}
+        setMessage={setMessage}
+        handleSendMessage={handleSendMessage}
+        user={user}
+        onLogout={() => null}
+      />
+    )
+  }
   return (
     <LayoutSignIn
       user={userToPass}

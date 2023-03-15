@@ -7,7 +7,6 @@ import {
   ref as storageRef,
   uploadBytesResumable,
 } from 'firebase/storage'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import type { FormEvent } from 'react'
@@ -21,7 +20,6 @@ export const useSignUp = () => {
   const [file, setFile] = useState<File>()
   const [progress, setProgress] = useState<number>(0)
   const [photoURL, setPhotoURL] = useState<string>('')
-  const router = useRouter()
 
   const { handleAuthAnonymous } = useAuthAnonymous()
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
@@ -95,8 +93,6 @@ export const useSignUp = () => {
                 displayName,
                 downloadURL,
               })
-              // chatに移動
-              router.push('/chat')
             })
           }
         )
