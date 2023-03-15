@@ -23,6 +23,7 @@ export const usePostMessage = () => {
           displayName: user?.displayName,
           photoURL: user?.photoURL,
           uid: user?.uid,
+          createdAt: new Date(),
         },
       })
       setMessage('')

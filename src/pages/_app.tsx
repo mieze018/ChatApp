@@ -12,6 +12,7 @@ firebaseStorage(initializeFirebaseApp())
 
 export default function App({ Component, pageProps }: AppProps) {
   const { user, isAuthLoading } = useAuthStateListener()
+  console.log(user)
   return (
     <>
       <GlobalStyles />

@@ -1,20 +1,18 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+import type { User } from 'firebase/auth'
 
 export const useAuthStateListener = () => {
   const auth = getAuth()
-  const user = auth.currentUser
-  const router = useRouter()
-  const isReady = router.isReady
+  const [user, setUser] = useState<User | null>(auth.currentUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  useEffect(() => {
-    if (isReady) setIsLoading(false)
-  }, [isReady])
-
-  onAuthStateChanged(auth, (user) => {
-    return user
+  onAuthStateChanged(auth, (authUser) => {
+    console.log(authUser)
+    setUser(authUser)
+    setIsLoading(authUser)
   })
+
   return { user, isAuthLoading: isLoading }
 }
 export type useAuthStateListenerType = ReturnType<typeof useAuthStateListener>

@@ -33,8 +33,8 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
   return (
     <LayoutSignIn
       user={userToPass}
-      //TODO: firebaseのユーザー削除メソッドを実装する
       isLoading={!!(isAuthLoading || user)}
+      //TODO: firebaseのユーザー削除メソッドを実装する
       onLogout={() => null}
       handleSignUp={handleSignUp}
       setDisplayName={setDisplayName}
