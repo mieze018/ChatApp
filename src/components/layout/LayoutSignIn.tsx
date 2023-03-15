@@ -64,7 +64,7 @@ export const LayoutSignIn: React.FC<
             onChange={(e) => setDisplayName(e.target.value)}
             required
             className="p-3 mb-5 border-2 rounded outline-none w-80 focus:border-purple-700"
-            placeholder={microCopies.お名前}
+            placeholder={microCopies.signInDisplayNamePlaceholder}
           />
         </Label>
         <ButtonWrapper>
