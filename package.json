@@ -11,7 +11,7 @@
     "test": "next test",
     "format": "prettier --write  . --ignore-path .gitignore",
     "prepare": "husky install",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build"
   },
   "dependencies": {
