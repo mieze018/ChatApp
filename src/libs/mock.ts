@@ -17,6 +17,8 @@ const mockUser3 = {
     'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABBUlEQVR4nOXSzyqEURjH8Q9xARakXIHsJ8otWNixV/7UZMuCJsWsrWYv1hbchVnLBUhqsFOjMHrrTL3xDvOMdxbyq2d1fuf7recc/luOcDgs+AI6aeaHITjLCU7Lhk+hnRO8YLpMwX4O3p29suBjuC0Q3GE8AprBKqo4QAPnaBbAu9NMnUa6U02MjPUlN9+AOsG5LhLUSxTUe61pG2+/AL+j9tNbLON5AHgbK/0+eAX3AfgDFgWzFBBk3XB2A4KdQQSXAcFFFD6Cx4DgCaMRwVwBpIW1NK2C8+xO39n49LdPMJk7n8AxXnO99YhgK126Sl+2Vyqpk3U3I4Jsn7N97jXS/YP5AB/luaLoTDvsAAAAAElFTkSuQmCC',
 }
 
+export const mockSentenceLongEnglish =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 export const mockChats = [
   {
     message: 'こんにちは',
@@ -27,8 +29,7 @@ export const mockChats = [
     user: mockUser2,
   },
   {
-    message:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    message: mockSentenceLongEnglish,
     user: mockUser3,
   },
   {
