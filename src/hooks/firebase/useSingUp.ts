@@ -82,6 +82,9 @@ export const useSignUp = () => {
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
               setPhotoURL(downloadURL)
+              setProgress(undefined)
+              setFile(undefined)
+              setDisplayName('')
 
               updateProfile(user, {
                 displayName: displayName,

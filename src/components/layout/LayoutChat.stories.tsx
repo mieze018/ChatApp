@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
-import { mockChats, mockUser } from '@/src/libs/mock'
+import { mockChats, mockUser3 } from '@/src/libs/mock'
 
 const meta: Meta<typeof LayoutChat> = {
   component: LayoutChat,
@@ -14,7 +14,7 @@ type Story = StoryObj<typeof LayoutChat>
 
 export const Default: Story = {
   args: {
-    user: mockUser,
+    user: mockUser3,
     chats: mockChats,
     isLoading: false,
     isBlank: false,

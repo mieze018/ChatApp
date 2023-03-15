@@ -10,8 +10,9 @@ import { Button } from '@/src/components/atom/Button'
 
 const Header = tw.header`flex items-center justify-between px-5 py-4 border-b border-black/20 h-fit`
 const HeaderTitle = tw.h1`font-bold text-xl leading-none inline-block`
-const WrapperInnerHeader = tw.div`flex gap-x-2 items-center`
-const UserWrapper = tw.span`text-sm flex items-center`
+const WrapperInnerHeader = tw.div`flex gap-x-2 items-center shrink-0`
+const UserWrapper = tw.span`text-sm flex items-center  gap-x-2`
+const DisplayName = tw.div`text-sm font-semibold line-clamp-1 max-w-prose`
 
 export const HeaderApp = ({
   user,
@@ -25,21 +26,21 @@ export const HeaderApp = ({
       <ChatIcon css={tw`w-8 h-8 text-primary`} />
       <HeaderTitle>SimpleChat</HeaderTitle>
     </WrapperInnerHeader>
-    <WrapperInnerHeader>
+    <WrapperInnerHeader css={tw`shrink`}>
       {user && (
         <>
           <UserWrapper>
+            <DisplayName title={user.displayName ?? ''}>{user.displayName}</DisplayName>
             <AvatarWrapper>
               <Image
                 src={user.photoURL || '/icons/no-user-image.svg'}
                 alt="ユーザーアイコン"
-                width={24}
-                height={24}
+                fill
+                sizes="64px"
               />
             </AvatarWrapper>
-            <b>{user.displayName}</b>
           </UserWrapper>
-          <Button size="small" onClick={onLogout}>
+          <Button variant="secondary" size="small" onClick={onLogout}>
             ログアウト
           </Button>
         </>

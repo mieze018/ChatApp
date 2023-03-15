@@ -20,7 +20,13 @@ export const ChatMessageAvatar: React.FC<{
   if (photoURL)
     return (
       <AvatarWrapper css={[StyleChatMessageAvatar]}>
-        <Image src={photoURL} alt={displayName ?? microCopies.noName} fill css={tw`object-cover`} />
+        <Image
+          src={photoURL}
+          alt={displayName ?? microCopies.noName}
+          sizes="80px"
+          fill
+          css={tw`object-cover`}
+        />
       </AvatarWrapper>
     )
   return <SvgChatMessageAvatarNoImage css={[StyleChatMessageAvatar]} />
