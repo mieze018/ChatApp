@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import tw from 'twin.macro'
 
 import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
@@ -14,27 +15,34 @@ export const ChatMessageList: React.FC<{
   user: LayoutChatProps['user']
   isLoading: LayoutChatProps['isLoading']
   isBlank: LayoutChatProps['isBlank']
-}> = ({ chats, user, isLoading, isBlank }) => (
-  // TODO ページ読み込み時とチャットが増えたら自動で最下部にスクロールする
-  <WrapperChatList>
-    {isLoading && <PageLoading />}
-    {isBlank && <WrapperBlank>{microCopies.chatBlank}</WrapperBlank>}
-    {!isLoading &&
-      !isBlank &&
-      chats.map((chat, i) => {
-        const { message, createdAt } = chat
-        const { uid, displayName, photoURL } = chat.user || {}
-        const isMyMessage = uid === user?.uid
-        return (
-          <ChatMessage
-            key={i}
-            message={message}
-            photoURL={photoURL}
-            displayName={displayName}
-            createdAt={createdAt}
-            isMyMessage={isMyMessage}
-          />
-        )
-      })}
-  </WrapperChatList>
-)
+}> = ({ chats, user, isLoading, isBlank }) => {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
+    }
+  }, [chats])
+  return (
+    <WrapperChatList ref={ref}>
+      {isLoading && <PageLoading />}
+      {isBlank && <WrapperBlank>{microCopies.chatBlank}</WrapperBlank>}
+      {!isLoading &&
+        !isBlank &&
+        chats.map((chat, i) => {
+          const { message, createdAt } = chat
+          const { uid, displayName, photoURL } = chat.user || {}
+          const isMyMessage = uid === user?.uid
+          return (
+            <ChatMessage
+              key={i}
+              message={message}
+              photoURL={photoURL}
+              displayName={displayName}
+              createdAt={createdAt}
+              isMyMessage={isMyMessage}
+            />
+          )
+        })}
+    </WrapperChatList>
+  )
+}
