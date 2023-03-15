@@ -2,8 +2,8 @@ import { within, userEvent } from '@storybook/testing-library'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { LoggedIn as HeaderLoggedIn } from '@/src/components/combined/HeaderApp.stories'
 import { Layout } from '@/src/components/layout/Layout'
+import { mockUser } from '@/src/libs/mock'
 
 const meta: Meta<typeof Layout> = {
   component: Layout,
@@ -66,7 +66,7 @@ const Contents = () => (
 
 export const LoggedIn: Story = {
   args: {
-    ...HeaderLoggedIn.args,
+    ...mockUser,
     children: <Contents />,
   },
   play: async ({ canvasElement }) => {
