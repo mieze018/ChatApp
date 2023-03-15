@@ -6,8 +6,8 @@ export type authUserType = {
 }
 /** 1チャットの情報 */
 export type chatType = {
-  id: string
+  id?: string
   message: string
   user: authUserType
-  createdAt: firebase.firestore.Timestamp
+  createdAt?: firebase.firestore.Timestamp
 }

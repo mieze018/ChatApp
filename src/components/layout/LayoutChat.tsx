@@ -5,16 +5,13 @@ import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
 import type { useSendMessageType } from '@/src/hooks/firebase/useSendMessage'
 import type { authUserType, chatType } from '@/src/types/firebaseDB'
 
-import { PageLoading } from '@/src/components/atom/PageLoading'
 import { ChatInput } from '@/src/components/combined/ChatInput'
 import { ChatMessageList } from '@/src/components/combined/ChatMessageList'
 import { Layout } from '@/src/components/layout/Layout'
-import { microCopies } from '@/src/libs/microCopies'
 
-const WrapperChat = tw.div` h-full w-full
-grid items-center justify-center [grid-template-rows: max-content 1fr max-content]
- content-between`
-const WrapperBlank = tw.div``
+const WrapperChat = tw.div`h-full w-full
+grid items-center justify-center gap-y-4 [grid-template-rows: 1fr max-content]
+content-between`
 
 export const LayoutChat: React.FC<
   LayoutProps & {
@@ -32,9 +29,7 @@ export const LayoutChat: React.FC<
     onLogout={onLogout}
   >
     <WrapperChat>
-      {isLoading && <PageLoading />}
-      {isBlank && <WrapperBlank>{microCopies.chatBlank}</WrapperBlank>}
-      {!isBlank && <ChatMessageList chats={chats} user={user} />}
+      <ChatMessageList chats={chats} user={user} isLoading={isLoading} isBlank={isBlank} />
       <ChatInput message={message} setMessage={setMessage} handleSendMessage={handleSendMessage} />
     </WrapperChat>
   </Layout>

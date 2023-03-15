@@ -10,7 +10,8 @@ const meta: Meta<typeof LayoutChat> = {
 
 export default meta
 
-type Story = StoryObj<typeof Chat>
+type Story = StoryObj<typeof LayoutChat>
+
 export const Default: Story = {
   args: {
     ...LoggedIn.args,
