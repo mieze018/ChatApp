@@ -1,6 +1,7 @@
 import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
+import type { useErrorType } from '@/src/hooks/firebase/useError'
 import type { useGetMessagesType } from '@/src/hooks/firebase/useGetMessages'
 import type { usePostMessageType } from '@/src/hooks/firebase/usePostMessage'
 import type { authUserType, chatType } from '@/src/types/firebaseDB'
@@ -24,14 +25,30 @@ export const LayoutChat: React.FC<
     message: chatType['message']
     setMessage: usePostMessageType['setMessage']
     handleSendMessage: usePostMessageType['handleSendMessage']
+    error: useErrorType['error']
   }
-> = ({ user, onLogout, chats, isLoading, isBlank, message, setMessage, handleSendMessage }) => (
+> = ({
+  user,
+  onLogout,
+  chats,
+  isLoading,
+  isBlank,
+  message,
+  setMessage,
+  handleSendMessage,
+  error,
+}) => (
   <Layout user={user} onLogout={onLogout} isOverflowYHidden={true}>
     <WrapperChat>
       <ScrollWrapper>
         <ChatMessageList chats={chats} user={user} isLoading={isLoading} isBlank={isBlank} />
       </ScrollWrapper>
-      <ChatInput message={message} setMessage={setMessage} handleSendMessage={handleSendMessage} />
+      <ChatInput
+        error={error}
+        message={message}
+        setMessage={setMessage}
+        handleSendMessage={handleSendMessage}
+      />
     </WrapperChat>
   </Layout>
 )

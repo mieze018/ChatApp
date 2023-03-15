@@ -29,3 +29,12 @@ export const Blank: Story = {
     isBlank: true,
   },
 }
+export const OnError: Story = {
+  args: {
+    ...Default.args,
+    error: {
+      code: 'error',
+      message: 'error',
+    },
+  },
+}

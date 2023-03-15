@@ -21,9 +21,9 @@ module.exports = {
         dark: colors.orange[600],
       },
       secondary: {
-        light: colors.cyan[300],
-        DEFAULT: colors.cyan[500],
-        dark: colors.cyan[700],
+        light: colors.blue[300],
+        DEFAULT: colors.blue[500],
+        dark: colors.blue[700],
       },
       state: {
         success: colors.green[500],

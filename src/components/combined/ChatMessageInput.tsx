@@ -2,9 +2,11 @@ import TextareaAutoSize from 'react-textarea-autosize'
 import tw from 'twin.macro'
 
 import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
+import type { useErrorType } from '@/src/hooks/firebase/useError'
 
 import SendIcon from '@/public/icons/send.svg'
 import { Button } from '@/src/components/atom/Button'
+import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
 
 const Wrapper = tw.div`
 h-full w-full 
@@ -27,7 +29,8 @@ export const ChatInput: React.FC<{
   message: LayoutChatProps['message']
   setMessage: LayoutChatProps['setMessage']
   handleSendMessage: LayoutChatProps['handleSendMessage']
-}> = ({ message, setMessage, handleSendMessage }) => (
+  error: useErrorType['error']
+}> = ({ message, setMessage, handleSendMessage, error }) => (
   <Wrapper>
     <FormSendMessage onSubmit={handleSendMessage}>
       <TextareaAutoSizeMessage
@@ -39,5 +42,6 @@ export const ChatInput: React.FC<{
         <SendIcon />
       </Button>
     </FormSendMessage>
+    {error && <ErrorWrapper css={tw`w-full max-w-screen-lg mx-auto`}>{error.message}</ErrorWrapper>}
   </Wrapper>
 )
