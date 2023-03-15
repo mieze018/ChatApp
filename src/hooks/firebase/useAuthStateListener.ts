@@ -8,7 +8,6 @@ export const useAuthStateListener = () => {
   const [user, setUser] = useState<User | null>(auth.currentUser)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   onAuthStateChanged(auth, (authUser) => {
-    console.log(authUser)
     setUser(authUser)
     setIsLoading(false)
   })
