@@ -21,5 +21,5 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 export type AppPropsType = {
   isAuthLoading: boolean
-  user: User | null
+  user: User | undefined
 } & AppProps

@@ -33,3 +33,9 @@ export const OnError: Story = {
     },
   },
 }
+export const OnLoading: Story = {
+  args: {
+    ...Default.args,
+    isLoading: true,
+  },
+}

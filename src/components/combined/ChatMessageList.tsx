@@ -2,8 +2,8 @@ import tw from 'twin.macro'
 
 import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
 
-import { PageLoading } from '@/src/components/atom/PageLoading'
 import { ChatMessage } from '@/src/components/combined/ChatMessage'
+import { PageLoading } from '@/src/components/combined/PageLoading'
 import { microCopies } from '@/src/libs/microCopies'
 
 const WrapperChatList = tw.div`grid gap-4 max-w-screen-lg mx-auto py-4 px-2 md:px-4 lg:px-0`
