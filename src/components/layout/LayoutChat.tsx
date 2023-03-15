@@ -19,7 +19,7 @@ export const LayoutChat: React.FC<
     chats: chatType[]
     isLoading: useGetMessagesType['isLoading']
     isBlank: useGetMessagesType['isBlank']
-    message: useSendMessageType['message']
+    message: chatType['message']
     setMessage: useSendMessageType['setMessage']
     handleSendMessage: useSendMessageType['handleSendMessage']
   }
