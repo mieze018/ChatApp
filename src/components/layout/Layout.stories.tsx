@@ -13,7 +13,7 @@ const meta: Meta<typeof Layout> = {
 export default meta
 type Story = StoryObj<typeof meta>
 const Contents = () => (
-  <>
+  <div className="px-5 py-12">
     <h2>Pages in Storybook</h2>
     <p>
       We recommend building UIs with a
@@ -61,8 +61,9 @@ const Contents = () => (
       </svg>
       Viewports addon in the toolbar
     </div>
-  </>
+  </div>
 )
+
 export const LoggedIn: Story = {
   args: {
     ...HeaderLoggedIn.args,

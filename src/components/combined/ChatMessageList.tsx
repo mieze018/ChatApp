@@ -6,7 +6,7 @@ import { PageLoading } from '@/src/components/atom/PageLoading'
 import { ChatMessage } from '@/src/components/combined/ChatMessage'
 import { microCopies } from '@/src/libs/microCopies'
 
-const WrapperChatList = tw.div`grid gap-2`
+const WrapperChatList = tw.div`grid gap-2 overflow-y-auto`
 const WrapperBlank = tw.div``
 
 export const ChatMessageList: React.FC<{
@@ -18,19 +18,21 @@ export const ChatMessageList: React.FC<{
   <WrapperChatList>
     {isLoading && <PageLoading />}
     {isBlank && <WrapperBlank>{microCopies.chatBlank}</WrapperBlank>}
-    {chats.map((chat, i) => {
-      const { message } = chat
-      const { uid, displayName, photoURL } = chat.user || {}
-      const isMyMessage = uid === user.uid
-      return (
-        <ChatMessage
-          key={i}
-          message={message}
-          photoURL={photoURL}
-          displayName={displayName}
-          isMyMessage={isMyMessage}
-        />
-      )
-    })}
+    {!isLoading &&
+      !isBlank &&
+      chats.map((chat, i) => {
+        const { message } = chat
+        const { uid, displayName, photoURL } = chat.user || {}
+        const isMyMessage = uid === user.uid
+        return (
+          <ChatMessage
+            key={i}
+            message={message}
+            photoURL={photoURL}
+            displayName={displayName}
+            isMyMessage={isMyMessage}
+          />
+        )
+      })}
   </WrapperChatList>
 )

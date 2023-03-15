@@ -11,7 +11,7 @@ grid [grid-template-rows: auto 1fr]
 break-all text-gray-dark
 `
 
-const Main = tw.main`py-12 px-5 overflow-auto`
+const Main = tw.main`overflow-auto`
 
 export const Layout: React.FC<{
   user: Pick<authUserType, 'displayName' | 'photoURL'>
