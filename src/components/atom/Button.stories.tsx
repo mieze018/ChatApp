@@ -34,3 +34,9 @@ export const Small: Story = {
     size: 'small',
   },
 }
+export const Disabled: Story = {
+  args: {
+    ...Primary.args,
+    disabled: true,
+  },
+}

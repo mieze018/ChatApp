@@ -14,6 +14,7 @@ export const usePostMessage = () => {
 
   const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!message) return
     try {
       const db = getDatabase()
       const dbRef = ref(db, 'chat')

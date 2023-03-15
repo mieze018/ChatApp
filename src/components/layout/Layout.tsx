@@ -8,7 +8,7 @@ import { HeaderApp } from '@/src/components/combined/HeaderApp'
 const WrapperApp = tw.div`
 h-screen
 grid [grid-template-rows: 65px 1fr]
-break-all text-gray-dark
+break-all text-gray-800
 `
 
 const Main = tw.main`overflow-auto`

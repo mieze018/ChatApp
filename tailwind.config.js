@@ -14,21 +14,16 @@ module.exports = {
       current: colors.current,
       black: colors.black,
       white: colors.white,
-      gray: {
-        lighter: colors.slate[400],
-        light: colors.slate[600],
-        DEFAULT: colors.slate[700],
-        dark: colors.slate[900],
-      },
+      gray: colors.gray,
       primary: {
         light: colors.orange[300],
         DEFAULT: colors.orange[500],
         dark: colors.orange[600],
       },
       secondary: {
-        light: colors.blue[300],
-        DEFAULT: colors.blue[500],
-        dark: colors.blue[700],
+        light: colors.cyan[300],
+        DEFAULT: colors.cyan[500],
+        dark: colors.cyan[700],
       },
       state: {
         success: colors.green[500],

@@ -9,7 +9,7 @@ import { InputFile } from '@/src/components/atom/InputFIle'
 import { LabelSignIn } from '@/src/components/atom/LabelSignIn'
 import { microCopies } from '@/src/libs/microCopies'
 
-const styleImage = tw`w-20 h-20 rounded-full text-gray-light`
+const styleImage = tw`w-20 h-20 text-gray-300 rounded-full`
 
 export const SignInInputImage: React.FC<Pick<LayoutSignInProps, 'file' | 'setFile'>> = ({
   file,

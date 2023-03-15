@@ -57,7 +57,7 @@ export const LayoutSignIn: React.FC<
           <SignInInputImage setFile={setFile} file={file} />
           <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
           <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
-          {progress || (user && <OverRayProgress progressPercentage={progress} />)}
+          {!!(progress || (user && <OverRayProgress progressPercentage={progress} />))}
           {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
         </FormCard>
       )}
