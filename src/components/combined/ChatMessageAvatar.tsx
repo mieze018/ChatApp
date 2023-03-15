@@ -13,6 +13,7 @@ const ImageChatMessageAvatar = styled(Image)`
 const SvgChatMessageAvatarNoImage = styled(NoUserImage)`
   ${StyleChatMessageAvatar}
 `
+
 export const ChatMessageAvatar: React.FC<{
   photoURL: chatType['user']['photoURL']
   displayName: chatType['user']['displayName']

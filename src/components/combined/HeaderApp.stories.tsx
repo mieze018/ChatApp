@@ -11,6 +11,7 @@ const meta: Meta<typeof HeaderApp> = {
 
 export default meta
 type Story = StoryObj<typeof HeaderApp>
+
 export const LoggedIn: Story = {
   args: {
     user: {

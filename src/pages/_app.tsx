@@ -9,6 +9,7 @@ import { firebaseStorage, initializeFirebaseApp } from '@/src/libs/firebase'
 import GlobalStyles from '@/styles/GlobalStyles'
 
 firebaseStorage(initializeFirebaseApp())
+
 export default function App({ Component, pageProps }: AppProps) {
   const { user, isAuthLoading } = useAuthStateListener()
   return (
