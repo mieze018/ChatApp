@@ -3,6 +3,7 @@ import tw from 'twin.macro'
 
 import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
 
+import SendIcon from '@/public/icons/send.svg'
 import { Button } from '@/src/components/atom/Button'
 
 const Wrapper = tw.div`
@@ -12,7 +13,7 @@ py-2 px-2 md:px-4 lg:px-0
 `
 
 const FormSendMessage = tw.form`
-grid gap-x-2  [grid-template-columns: 1fr max-content] items-end
+grid gap-x-3 [grid-template-columns: 1fr max-content] items-end
 w-full max-w-screen-lg 
 mx-auto
 `
@@ -34,7 +35,9 @@ export const ChatInput: React.FC<{
         onChange={(e) => setMessage(e.target.value)}
         autoFocus
       />
-      <Button type="submit">送信</Button>
+      <Button type="submit" css={tw`w-12 h-12 p-2 rounded-full`}>
+        <SendIcon />
+      </Button>
     </FormSendMessage>
   </Wrapper>
 )
