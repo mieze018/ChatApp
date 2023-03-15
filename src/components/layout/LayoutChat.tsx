@@ -17,7 +17,7 @@ const ScrollWrapper = tw.div`overflow-y-auto w-screen h-[inherit]`
 
 export const LayoutChat: React.FC<
   LayoutProps & {
-    user: authUserType
+    user: authUserType | undefined
     chats: chatType[]
     isLoading: useGetMessagesType['isLoading']
     isBlank: useGetMessagesType['isBlank']
