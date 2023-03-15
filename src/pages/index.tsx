@@ -13,7 +13,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
   const { chats, isLoading, isBlank } = useGetMessages()
   const { message, setMessage, handleSendMessage } = usePostMessage()
   const { deleteAccount } = useAuthDelete()
-  const isSubmitBlocked = !displayName || !file || progress > 0
+  const isSubmitBlocked = !displayName || !file || progress
   const userToPass = user && {
     displayName: user?.displayName,
     photoURL: user?.photoURL,
