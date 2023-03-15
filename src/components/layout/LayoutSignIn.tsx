@@ -57,6 +57,7 @@ export const LayoutSignIn: React.FC<
           <SignInHeader>{microCopies.signInHeader}</SignInHeader>
 
           <Label css={tw`cursor-pointer`}>
+            {/* TODO: アップロード画像のプレビュー表示 */}
             <NoUserImageIcon css={tw`w-20 h-20 mb-2 text-gray-light`} />
 
             <InputFile accept="image/*" onChange={(e) => setFile(e.target.files?.[0])} />

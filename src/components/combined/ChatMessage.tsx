@@ -13,20 +13,23 @@ const StyleChatMessageTextMine = tw`text-white rounded-tr-none bg-secondary roun
 const ChatMessageDisplayName = tw.div`text-xs text-gray-light line-clamp-1`
 const WrapperNameAndMessage = tw.div`flex flex-col`
 const StyleWrapperNameAndMessage = tw`items-end`
+const ChatMessageCreatedAt = tw.div`text-xs text-gray-light self-end pb-1`
 
 export const ChatMessage: React.FC<{
   message: LayoutChatProps['message']
   photoURL: chatType['user']['photoURL']
   displayName: chatType['user']['displayName']
+  createdAt: chatType['createdAt']
   isMyMessage: boolean
-}> = ({ message, photoURL, displayName, isMyMessage }) => (
+}> = ({ message, photoURL, displayName, createdAt, isMyMessage }) => (
   <ChatMessageWrapper css={[isMyMessage && StyleChatMessageMine]}>
     <ChatMessageAvatar photoURL={photoURL} displayName={displayName} />
     <WrapperNameAndMessage css={[isMyMessage && StyleWrapperNameAndMessage]}>
       <ChatMessageDisplayName title={displayName ?? ''}>
-        {displayName ?? microCopies.noName}{' '}
+        {displayName ?? microCopies.noName}
       </ChatMessageDisplayName>
       <ChatMessageText css={[isMyMessage && StyleChatMessageTextMine]}>{message}</ChatMessageText>
     </WrapperNameAndMessage>
+    <ChatMessageCreatedAt>{createdAt}</ChatMessageCreatedAt>
   </ChatMessageWrapper>
 )

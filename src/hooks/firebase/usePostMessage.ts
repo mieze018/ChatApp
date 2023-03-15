@@ -19,11 +19,11 @@ export const usePostMessage = () => {
       const dbRef = ref(db, 'chat')
       await push(dbRef, {
         message,
+        createdAt: new Date().toISOString(),
         user: {
           displayName: user?.displayName,
           photoURL: user?.photoURL,
           uid: user?.uid,
-          createdAt: new Date(),
         },
       })
       setMessage('')

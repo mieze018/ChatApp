@@ -22,7 +22,7 @@ export const ChatMessageList: React.FC<{
     {!isLoading &&
       !isBlank &&
       chats.map((chat, i) => {
-        const { message } = chat
+        const { message, createdAt } = chat
         const { uid, displayName, photoURL } = chat.user || {}
         const isMyMessage = uid === user?.uid
         return (
@@ -31,6 +31,7 @@ export const ChatMessageList: React.FC<{
             message={message}
             photoURL={photoURL}
             displayName={displayName}
+            createdAt={createdAt}
             isMyMessage={isMyMessage}
           />
         )

@@ -9,5 +9,5 @@ export type chatType = {
   id?: string
   message: string | null
   user: authUserType
-  createdAt?: firebase.firestore.Timestamp
+  createdAt: string
 }

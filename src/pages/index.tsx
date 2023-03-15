@@ -6,6 +6,7 @@ import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
 import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
 import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
+import { timestampToRelativeDate } from '@/src/libs/formatTIme'
 
 export default function Home({ isAuthLoading, user }: AppPropsType) {
   const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp()
@@ -18,10 +19,16 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
     photoURL: user?.photoURL,
     uid: user?.uid,
   }
+  const chatsToPath = chats.map((chat) => {
+    return {
+      ...chat,
+      createdAt: timestampToRelativeDate(chat.createdAt),
+    }
+  })
   if (user) {
     return (
       <LayoutChat
-        chats={chats}
+        chats={chatsToPath}
         isLoading={isLoading}
         isBlank={isBlank}
         message={message}
