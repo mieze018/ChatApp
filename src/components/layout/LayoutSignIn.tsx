@@ -7,7 +7,6 @@ import type { authUserType } from '@/src/types/firebaseDB'
 
 import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
 import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
-import { PageLoading } from '@/src/components/combined/PageLoading'
 import { SignInInputDisplayName } from '@/src/components/combined/SignInInputDisplayName'
 import { SignInInputImage } from '@/src/components/combined/SignInInputImage'
 import { SignInSubmit } from '@/src/components/combined/SignInSubmit'
@@ -24,7 +23,6 @@ const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white ro
 
 export const LayoutSignIn: React.FC<
   LayoutProps & {
-    isLoading: boolean
     user: authUserType | null
     handleSignUp: useSignUpType['handleSignUp']
     setDisplayName: useSignUpType['setDisplayName']
@@ -36,7 +34,6 @@ export const LayoutSignIn: React.FC<
     isSubmitBlocked: boolean
   }
 > = ({
-  isLoading,
   user,
   onLogout,
   handleSignUp,
@@ -50,18 +47,14 @@ export const LayoutSignIn: React.FC<
 }) => (
   <Layout user={user} onLogout={onLogout}>
     <WrapperSignIn>
-      {isLoading ? (
-        <PageLoading />
-      ) : (
-        <FormCard onSubmit={handleSignUp}>
-          <SignInHeader>{microCopies.signInHeader}</SignInHeader>
-          <SignInInputImage setFile={setFile} file={file} />
-          <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
-          <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
-          {!!(progress || (user && <OverRayProgress progressPercentage={progress} />))}
-          {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
-        </FormCard>
-      )}
+      <FormCard onSubmit={handleSignUp}>
+        <SignInHeader>{microCopies.signInHeader}</SignInHeader>
+        <SignInInputImage setFile={setFile} file={file} />
+        <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
+        <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
+        {!!(progress || (user && <OverRayProgress progressPercentage={progress} />))}
+        {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
+      </FormCard>
     </WrapperSignIn>
   </Layout>
 )
