@@ -6,7 +6,7 @@ import type { useSignUpType } from '@/src/hooks/firebase/useSingUp'
 import type { authUserType } from '@/src/types/firebaseDB'
 
 import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
-import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
+import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
 import { SignInInputDisplayName } from '@/src/components/combined/SignInInputDisplayName'
 import { SignInInputImage } from '@/src/components/combined/SignInInputImage'
 import { SignInSubmit } from '@/src/components/combined/SignInSubmit'
@@ -52,7 +52,7 @@ export const LayoutSignIn: React.FC<
         <SignInInputImage setFile={setFile} file={file} />
         <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
         <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
-        {!!(progress || (user && <OverRayProgress progressPercentage={progress} />))}
+        {!!(progress || (user && <OverRayLoading progressPercentage={progress} />))}
         {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
       </FormCard>
     </WrapperSignIn>

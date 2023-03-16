@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import type { User } from 'firebase/auth'
 import type { AppProps } from 'next/app'
 
-import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
+import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
 import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
@@ -37,7 +37,7 @@ export default function Home() {
       }
     : undefined
 
-  if (isInitLoading) return <OverRayProgress />
+  if (isInitLoading) return <OverRayLoading />
   if (isPhotoUploaded) {
     return (
       <>
@@ -52,7 +52,7 @@ export default function Home() {
           onLogout={deleteAccount}
           error={error}
         />
-        {isPosting && <OverRayProgress progressPercentage={progress} />}
+        {isPosting && <OverRayLoading progressPercentage={progress} />}
       </>
     )
   }
@@ -70,7 +70,7 @@ export default function Home() {
         progress={progress}
         isSubmitBlocked={isSubmitBlocked}
       />
-      {isPosting && <OverRayProgress progressPercentage={progress} />}
+      {isPosting && <OverRayLoading progressPercentage={progress} />}
     </>
   )
 }
