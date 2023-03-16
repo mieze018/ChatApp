@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
 
 const meta: Meta<typeof LayoutSignIn> = {
@@ -36,8 +37,13 @@ export const OnError: Story = {
 export const OnLoading: Story = {
   args: {
     ...Default.args,
-    isLoading: true,
+    isSubmitBlocked: true,
   },
+  render: (args) => (
+    <>
+      <LayoutSignIn {...args} /> <OverRayLoading />
+    </>
+  ),
 }
 export const OnProgress: Story = {
   args: {
@@ -45,4 +51,9 @@ export const OnProgress: Story = {
     progress: 50,
     isSubmitBlocked: true,
   },
+  render: (args) => (
+    <>
+      <LayoutSignIn {...args} /> <OverRayLoading progressPercentage={args.progress} />
+    </>
+  ),
 }
