@@ -1,7 +1,7 @@
 import { FirebaseError } from 'firebase/app'
 import { getAuth, deleteUser } from 'firebase/auth'
 
-import type { authLoadingStateType } from '@/src/pages/_app'
+import type { authLoadingStateType } from '@/src/pages'
 
 import { useError } from '@/src/hooks/firebase/useError'
 
