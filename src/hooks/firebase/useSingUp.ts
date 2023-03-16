@@ -29,14 +29,17 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
   }
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
+    setError(null)
     setProgress(0)
     e.preventDefault()
     if (!displayName) {
       setError(new Error('名前を入力してください'))
+      setProgress(undefined)
       return
     }
     if (!file) {
       setError(new Error('画像を選択してください'))
+      setProgress(undefined)
       return
     }
     try {
@@ -46,6 +49,7 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
       })
     } catch (e) {
       setError(e as FirebaseError)
+      setProgress(undefined)
     }
   }
   // 画像をアップロードしてPhotoURLに設定、ユーザー名を更新
@@ -60,7 +64,10 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         setProgress(progress)
       },
-      (error) => setError(error),
+      (error) => {
+        setError(error)
+        setProgress(undefined)
+      },
       () => {
         setError(null)
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
