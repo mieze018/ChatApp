@@ -17,6 +17,7 @@ import { microCopies } from '@/src/libs/microCopies'
 const WrapperSignIn = tw.div`h-full w-full 
 grid items-center justify-center
 px-4 mx-auto
+bg-gray-100
 `
 const SignInHeader = tw.h2`my-8 text-2xl font-semibold text-center`
 const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white rounded shadow-md max-w-sm mx-auto`

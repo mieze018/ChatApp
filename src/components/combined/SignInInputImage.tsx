@@ -15,7 +15,7 @@ export const SignInInputImage: React.FC<Pick<LayoutSignInProps, 'file' | 'setFil
   file,
   setFile,
 }) => (
-  <LabelSignIn css={tw`grid cursor-pointer gap-y-1`}>
+  <LabelSignIn css={tw`grid cursor-pointer gap-y-8`}>
     {file ? (
       <AvatarWrapper css={styleImage}>
         <Image
