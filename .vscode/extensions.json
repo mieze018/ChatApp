@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "github.copilot-nightly",
+    "styled-components.vscode-styled-components",
+    "lightyen.tailwindcss-intellisense-twin",
+    "bradlc.vscode-tailwindcss",
+    "heybourn.headwind",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
