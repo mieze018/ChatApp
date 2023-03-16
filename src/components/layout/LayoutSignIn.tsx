@@ -14,7 +14,7 @@ import { SignInSubmit } from '@/src/components/combined/SignInSubmit'
 import { Layout } from '@/src/components/layout/Layout'
 import { microCopies } from '@/src/libs/microCopies'
 
-const WrapperSignIn = tw.div`h-full w-full 
+const WrapperSignIn = tw.div`w-full min-h-full h-auto 
 grid items-center justify-center
 px-4 mx-auto
 bg-gray-100
