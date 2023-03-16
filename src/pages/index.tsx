@@ -25,9 +25,11 @@ export default function Home() {
   const { chats, isLoading, isBlank } = useGetMessages(user)
   const { message, setMessage, handleSendMessage } = usePostMessage()
   const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
-  const isSubmitBlocked = !displayName || !file || !!progress
-  const isPosting = !user || progress || isAuthLoading
   const isInitLoading = isAuthLoading || user === undefined
+  const isPhotoUploaded = user && user.photoURL
+  const isSubmitBlocked = !!(!displayName || !file || (progress && progress > 0))
+  const isPosting = (progress && progress > 0) || isAuthLoading
+  /** 表示に必要な情報のみをPick */
   const userToDisplay = user
     ? {
         displayName: user?.displayName,
@@ -35,13 +37,14 @@ export default function Home() {
         uid: user?.uid,
       }
     : undefined
+  /** タイムスタンプをフォーマットして再定義 */
   const chatsToDisplay = chats.map((chat) => ({
     ...chat,
     createdAt: timestampToRelativeDate(chat.createdAt),
   }))
 
   if (isInitLoading) return <OverRayProgress />
-  if (user && user.photoURL) {
+  if (isPhotoUploaded) {
     return (
       <>
         <LayoutChat
@@ -73,7 +76,7 @@ export default function Home() {
         progress={progress}
         isSubmitBlocked={isSubmitBlocked}
       />
-      {isAuthLoading && <OverRayProgress progressPercentage={progress} />}
+      {isPosting && <OverRayProgress progressPercentage={progress} />}
     </>
   )
 }
