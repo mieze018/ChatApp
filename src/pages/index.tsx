@@ -1,5 +1,6 @@
 import type { AppPropsType } from '@/src/pages/_app'
 
+import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
 import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
@@ -14,50 +15,54 @@ export default function Home({ isAuthLoading, setIsAuthLoading, user, setUser }:
   })
   const { chats, isLoading, isBlank } = useGetMessages()
   const { message, setMessage, handleSendMessage } = usePostMessage()
-  const { deleteAccount } = useAuthDelete({ setIsAuthLoading: setIsAuthLoading })
+  const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
   const isSubmitBlocked = !displayName || !file || !!progress
-  const isAuthAndPhotoUploaded = user?.photoURL && !progress
-  const userToPass = user && {
+  const isPosting = !user || progress || isAuthLoading
+  const userToDisplay = user && {
     displayName: user?.displayName,
     photoURL: user?.photoURL,
     uid: user?.uid,
   }
-  const chatsToPath = chats.map((chat) => {
+  const chatsToDisplay = chats.map((chat) => {
     return {
       ...chat,
       createdAt: timestampToRelativeDate(chat.createdAt),
     }
   })
-  if (isAuthAndPhotoUploaded) {
+  if (user) {
     return (
-      <LayoutChat
-        chats={chatsToPath}
-        isLoading={isLoading}
-        isBlank={isBlank}
-        message={message}
-        setMessage={setMessage}
-        handleSendMessage={handleSendMessage}
-        user={user}
-        onLogout={deleteAccount}
-        error={error}
-        setIsAuthLoading={setIsAuthLoading}
-      />
+      <>
+        <LayoutChat
+          chats={chatsToDisplay}
+          isLoading={isLoading}
+          isBlank={isBlank}
+          message={message}
+          setMessage={setMessage}
+          handleSendMessage={handleSendMessage}
+          user={user}
+          onLogout={deleteAccount}
+          error={error}
+        />
+        {isPosting && <OverRayProgress />}
+      </>
     )
   }
   return (
-    <LayoutSignIn
-      user={userToPass}
-      isLoading={!!(isAuthLoading || user)}
-      onLogout={deleteAccount}
-      handleSignUp={handleSignUp}
-      setDisplayName={setDisplayName}
-      displayName={displayName}
-      setFile={setFile}
-      file={file}
-      error={error}
-      progress={progress}
-      isSubmitBlocked={isSubmitBlocked}
-      setIsAuthLoading={setIsAuthLoading}
-    />
+    <>
+      <LayoutSignIn
+        user={userToDisplay}
+        isLoading={!!(isAuthLoading || user)}
+        onLogout={deleteAccount}
+        handleSignUp={handleSignUp}
+        setDisplayName={setDisplayName}
+        displayName={displayName}
+        setFile={setFile}
+        file={file}
+        error={error}
+        progress={progress}
+        isSubmitBlocked={isSubmitBlocked}
+      />
+      {isAuthLoading && <OverRayProgress />}
+    </>
   )
 }

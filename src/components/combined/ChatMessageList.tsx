@@ -4,7 +4,6 @@ import tw from 'twin.macro'
 import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
 
 import { ChatMessage } from '@/src/components/combined/ChatMessage'
-import { PageLoading } from '@/src/components/combined/PageLoading'
 import { microCopies } from '@/src/libs/microCopies'
 
 const WrapperChatList = tw.div`grid gap-4 max-w-screen-lg mx-auto py-4 px-2 md:px-4 lg:px-0`
@@ -24,7 +23,7 @@ export const ChatMessageList: React.FC<{
   }, [chats])
   return (
     <WrapperChatList ref={ref}>
-      {isLoading && <PageLoading />}
+      {isLoading && <></>}
       {isBlank && <WrapperBlank>{microCopies.chatBlank}</WrapperBlank>}
       {!isLoading &&
         !isBlank &&

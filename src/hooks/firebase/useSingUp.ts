@@ -41,6 +41,7 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
       await handleAuthAnonymous().then((user) => {
         postPhotoURL({ user, file }).then(() => {
           handleAuthAnonymous().then((user) => {
+            debugger
             setUser(user)
           })
         })
@@ -64,10 +65,6 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
           setPhotoURL(downloadURL)
           resetFormValue()
           updateProfile(user, { displayName: displayName, photoURL: downloadURL })
-          // userを再取得
-          handleAuthAnonymous().then((user) => {
-            setUser(user)
-          })
         })
       }
     )
