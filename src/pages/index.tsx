@@ -8,13 +8,15 @@ import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
 import { timestampToRelativeDate } from '@/src/libs/formatTIme'
 
-export default function Home({ isAuthLoading, user }: AppPropsType) {
-  const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp()
+export default function Home({ isAuthLoading, setIsAuthLoading, user, setUser }: AppPropsType) {
+  const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp({
+    setUser,
+  })
   const { chats, isLoading, isBlank } = useGetMessages()
   const { message, setMessage, handleSendMessage } = usePostMessage()
-  const { deleteAccount } = useAuthDelete()
+  const { deleteAccount } = useAuthDelete({ setIsAuthLoading: setIsAuthLoading })
   const isSubmitBlocked = !displayName || !file || !!progress
-  const isAuthAndPhotoUploaded = user && !progress
+  const isAuthAndPhotoUploaded = user?.photoURL && !progress
   const userToPass = user && {
     displayName: user?.displayName,
     photoURL: user?.photoURL,
@@ -38,6 +40,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
         user={user}
         onLogout={deleteAccount}
         error={error}
+        setIsAuthLoading={setIsAuthLoading}
       />
     )
   }
@@ -54,6 +57,7 @@ export default function Home({ isAuthLoading, user }: AppPropsType) {
       error={error}
       progress={progress}
       isSubmitBlocked={isSubmitBlocked}
+      setIsAuthLoading={setIsAuthLoading}
     />
   )
 }

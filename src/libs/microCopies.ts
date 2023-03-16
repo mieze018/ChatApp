@@ -5,4 +5,6 @@ export const microCopies = {
   signInDisplayNamePlaceholder: 'ユーザー名',
   chatBlank: '初めてのチャットを投稿しましょう',
   noName: 'No Name',
+  signUp: 'サインアップ',
+  signOut: 'サインアウト',
 }

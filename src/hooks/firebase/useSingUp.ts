@@ -8,12 +8,14 @@ import {
 } from 'firebase/storage'
 import { useState } from 'react'
 
+import type { userStateType } from '@/src/pages/_app'
+import type { User } from 'firebase/auth'
 import type { FormEvent } from 'react'
 
 import { useAuthAnonymous } from '@/src/hooks/firebase/useAuthAnonymous'
 import { useError } from '@/src/hooks/firebase/useError'
 
-export const useSignUp = () => {
+export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) => {
   const { error, setError } = useError()
   const [displayName, setDisplayName] = useState<string>('')
   const [file, setFile] = useState<File>()
@@ -36,31 +38,40 @@ export const useSignUp = () => {
       return
     }
     try {
-      const storage = getStorage()
-      const metadata = { contentType: 'image/png' }
       await handleAuthAnonymous().then((user) => {
-        const { uid } = user
-        const photoRef = storageRef(storage, `user/${uid}/photoURL.png`)
-        photoRef.fullPath
-        const uploadTask = uploadBytesResumable(photoRef, file, metadata)
-        uploadTask.on(
-          'state_changed',
-          (snapshot) => setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
-          (error) => setError(error),
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              setPhotoURL(downloadURL)
-              resetFormValue()
-              updateProfile(user, { displayName: displayName, photoURL: downloadURL })
-            })
-          }
-        )
+        postPhotoURL({ user, file }).then(() => {
+          handleAuthAnonymous().then((user) => {
+            setUser(user)
+          })
+        })
       })
     } catch (e) {
       if (e instanceof FirebaseError) setError(e)
     }
   }
-
+  const postPhotoURL = async ({ user, file }: { user: User; file: File }) => {
+    const storage = getStorage()
+    const metadata = { contentType: 'image/png' }
+    const photoRef = storageRef(storage, `user/${user.uid}/photoURL.png`)
+    photoRef.fullPath
+    const uploadTask = uploadBytesResumable(photoRef, file, metadata)
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
+      (error) => setError(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setPhotoURL(downloadURL)
+          resetFormValue()
+          updateProfile(user, { displayName: displayName, photoURL: downloadURL })
+          // userを再取得
+          handleAuthAnonymous().then((user) => {
+            setUser(user)
+          })
+        })
+      }
+    )
+  }
   return {
     file,
     setFile,
@@ -73,4 +84,5 @@ export const useSignUp = () => {
     handleSignUp,
   }
 }
+
 export type useSignUpType = ReturnType<typeof useSignUp>
