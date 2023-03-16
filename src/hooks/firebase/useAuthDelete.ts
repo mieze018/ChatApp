@@ -14,10 +14,10 @@ export const useAuthDelete = ({
   const deleteAccount = () => {
     const auth = getAuth()
     if (!auth.currentUser) return
-    // setIsAuthLoading(true)
+    setIsAuthLoading(true)
     deleteUser(auth.currentUser)
       .then(() => {
-        // setIsAuthLoading(false)
+        setIsAuthLoading(false)
       })
       .catch((e) => {
         if (e instanceof FirebaseError) {
