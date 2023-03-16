@@ -2,11 +2,12 @@ import { FirebaseError } from 'firebase/app'
 import { getDatabase, ref, onValue, onChildAdded } from 'firebase/database'
 import { useState, useEffect } from 'react'
 
+import type { userStateType } from '@/src/pages'
 import type { chatType } from '@/src/types/firebaseDB'
 
 import { useError } from '@/src/hooks/firebase/useError'
 
-export const useGetMessages = (user) => {
+export const useGetMessages = (user: userStateType['user']) => {
   const [chats, setChats] = useState<chatType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isBlank, setIsBlank] = useState<boolean>(false)
@@ -40,8 +41,8 @@ export const useGetMessages = (user) => {
         return
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    return
+  }, [setError, user])
   return { chats, isLoading, isBlank, error }
 }
 export type useGetMessagesType = ReturnType<typeof useGetMessages>

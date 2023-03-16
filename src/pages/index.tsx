@@ -27,6 +27,7 @@ export default function Home() {
   const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
   const isSubmitBlocked = !displayName || !file || !!progress
   const isPosting = !user || progress || isAuthLoading
+  const isInitLoading = isAuthLoading || user === undefined
   const userToDisplay = user
     ? {
         displayName: user?.displayName,
@@ -38,7 +39,8 @@ export default function Home() {
     ...chat,
     createdAt: timestampToRelativeDate(chat.createdAt),
   }))
-  if (user === undefined) {
+  if (isInitLoading) return <OverRayProgress />
+  if (user) {
     return (
       <>
         <LayoutChat
@@ -75,6 +77,7 @@ export default function Home() {
     </>
   )
 }
+
 export type userStateType = {
   user: User | null | undefined
   setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>
