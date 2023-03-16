@@ -3,6 +3,7 @@ import React from 'react'
 
 import type { AppProps } from 'next/app'
 
+import { firebaseStorage, initializeFirebaseApp } from '@/src/libs/firebase'
 import GlobalStyles from '@/styles/GlobalStyles'
 
 firebaseStorage(initializeFirebaseApp())
