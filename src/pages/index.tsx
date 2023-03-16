@@ -16,12 +16,12 @@ import { timestampToRelativeDate } from '@/src/libs/formatTIme'
 export default function Home() {
   const [user, setUser] = useState<userStateType['user']>(undefined)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
-  useEffect(() => {
-    authListener({ setUser, setIsAuthLoading })
-  }, [user])
   const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp({
     setUser,
   })
+  useEffect(() => {
+    authListener({ setUser, setIsAuthLoading })
+  }, [user])
   const { chats, isLoading, isBlank } = useGetMessages(user)
   const { message, setMessage, handleSendMessage } = usePostMessage()
   const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
@@ -39,8 +39,9 @@ export default function Home() {
     ...chat,
     createdAt: timestampToRelativeDate(chat.createdAt),
   }))
+
   if (isInitLoading) return <OverRayProgress />
-  if (user) {
+  if (user && user.photoURL) {
     return (
       <>
         <LayoutChat
@@ -54,7 +55,7 @@ export default function Home() {
           onLogout={deleteAccount}
           error={error}
         />
-        {isPosting && <OverRayProgress />}
+        {isPosting && <OverRayProgress progressPercentage={progress} />}
       </>
     )
   }
@@ -62,7 +63,6 @@ export default function Home() {
     <>
       <LayoutSignIn
         user={userToDisplay}
-        isLoading={!!(isAuthLoading || user)}
         onLogout={deleteAccount}
         handleSignUp={handleSignUp}
         setDisplayName={setDisplayName}
@@ -73,7 +73,7 @@ export default function Home() {
         progress={progress}
         isSubmitBlocked={isSubmitBlocked}
       />
-      {isAuthLoading && <OverRayProgress />}
+      {isAuthLoading && <OverRayProgress progressPercentage={progress} />}
     </>
   )
 }

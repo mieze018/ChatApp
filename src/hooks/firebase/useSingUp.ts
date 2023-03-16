@@ -1,5 +1,4 @@
-import { FirebaseError } from 'firebase/app'
-import { updateProfile } from 'firebase/auth'
+import { getAuth, updateProfile } from 'firebase/auth'
 import {
   getDownloadURL,
   getStorage,
@@ -9,7 +8,7 @@ import {
 import { useState } from 'react'
 
 import type { userStateType } from '@/src/pages'
-import type { User } from 'firebase/auth'
+import type { FirebaseError } from 'firebase/app'
 import type { FormEvent } from 'react'
 
 import { useAuthAnonymous } from '@/src/hooks/firebase/useAuthAnonymous'
@@ -38,36 +37,38 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
       return
     }
     try {
+      // 匿名ユーザーを作成
       await handleAuthAnonymous().then((user) => {
-        postPhotoURL({ user, file }).then(() => {
-          handleAuthAnonymous().then((user) => {
-            setUser(user)
-          })
-        })
+        // 画像をアップロードしてPhotoURLに設定、ユーザー名を更新
+        const storage = getStorage()
+        const metadata = { contentType: 'image/png' }
+        const photoRef = storageRef(storage, `user/${user.uid}/photoURL.png`)
+        const uploadTask = uploadBytesResumable(photoRef, file, metadata)
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            setProgress(progress)
+          },
+          (error) => setError(error),
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setPhotoURL(downloadURL)
+              updateProfile(user, { displayName: displayName, photoURL: downloadURL }).then(() => {
+                // ユーザー情報を再取得
+                const auth = getAuth()
+                setUser(auth.currentUser)
+                resetFormValue()
+              })
+            })
+          }
+        )
       })
     } catch (e) {
-      if (e instanceof FirebaseError) setError(e)
+      setError(e as FirebaseError)
     }
   }
-  const postPhotoURL = async ({ user, file }: { user: User; file: File }) => {
-    const storage = getStorage()
-    const metadata = { contentType: 'image/png' }
-    const photoRef = storageRef(storage, `user/${user.uid}/photoURL.png`)
-    photoRef.fullPath
-    const uploadTask = uploadBytesResumable(photoRef, file, metadata)
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
-      (error) => setError(error),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setPhotoURL(downloadURL)
-          resetFormValue()
-          updateProfile(user, { displayName: displayName, photoURL: downloadURL })
-        })
-      }
-    )
-  }
+
   return {
     file,
     setFile,
