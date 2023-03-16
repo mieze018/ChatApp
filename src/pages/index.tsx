@@ -1,4 +1,7 @@
-import type { AppPropsType } from '@/src/pages/_app'
+import { useEffect, useState } from 'react'
+
+import type { User } from 'firebase/auth'
+import type { AppProps } from 'next/app'
 
 import { OverRayProgress } from '@/src/components/combined/OverRayProgress'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
@@ -7,29 +10,35 @@ import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
 import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
 import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
+import { authListener } from '@/src/libs/firebase/authListener'
 import { timestampToRelativeDate } from '@/src/libs/formatTIme'
 
-export default function Home({ isAuthLoading, setIsAuthLoading, user, setUser }: AppPropsType) {
+export default function Home() {
+  const [user, setUser] = useState<userStateType['user']>(undefined)
+  const [isAuthLoading, setIsAuthLoading] = useState(false)
+  useEffect(() => {
+    authListener({ setUser, setIsAuthLoading })
+  }, [user])
   const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp({
     setUser,
   })
-  const { chats, isLoading, isBlank } = useGetMessages()
+  const { chats, isLoading, isBlank } = useGetMessages(user)
   const { message, setMessage, handleSendMessage } = usePostMessage()
   const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
   const isSubmitBlocked = !displayName || !file || !!progress
   const isPosting = !user || progress || isAuthLoading
-  const userToDisplay = user && {
-    displayName: user?.displayName,
-    photoURL: user?.photoURL,
-    uid: user?.uid,
-  }
-  const chatsToDisplay = chats.map((chat) => {
-    return {
-      ...chat,
-      createdAt: timestampToRelativeDate(chat.createdAt),
-    }
-  })
-  if (user) {
+  const userToDisplay = user
+    ? {
+        displayName: user?.displayName,
+        photoURL: user?.photoURL,
+        uid: user?.uid,
+      }
+    : undefined
+  const chatsToDisplay = chats.map((chat) => ({
+    ...chat,
+    createdAt: timestampToRelativeDate(chat.createdAt),
+  }))
+  if (user === undefined) {
     return (
       <>
         <LayoutChat
@@ -66,3 +75,13 @@ export default function Home({ isAuthLoading, setIsAuthLoading, user, setUser }:
     </>
   )
 }
+export type userStateType = {
+  user: User | null | undefined
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>
+}
+export type authLoadingStateType = {
+  isAuthLoading: boolean
+  setIsAuthLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export type AppPropsType = userStateType & authLoadingStateType & AppProps

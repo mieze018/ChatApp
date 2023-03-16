@@ -8,7 +8,7 @@ import {
 } from 'firebase/storage'
 import { useState } from 'react'
 
-import type { userStateType } from '@/src/pages/_app'
+import type { userStateType } from '@/src/pages'
 import type { User } from 'firebase/auth'
 import type { FormEvent } from 'react'
 
@@ -41,7 +41,6 @@ export const useSignUp = ({ setUser }: { setUser: userStateType['setUser'] }) =>
       await handleAuthAnonymous().then((user) => {
         postPhotoURL({ user, file }).then(() => {
           handleAuthAnonymous().then((user) => {
-            debugger
             setUser(user)
           })
         })

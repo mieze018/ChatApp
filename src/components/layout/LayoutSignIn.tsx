@@ -25,7 +25,7 @@ const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white ro
 export const LayoutSignIn: React.FC<
   LayoutProps & {
     isLoading: boolean
-    user: authUserType | undefined
+    user: authUserType | null
     handleSignUp: useSignUpType['handleSignUp']
     setDisplayName: useSignUpType['setDisplayName']
     displayName: useSignUpType['displayName']
