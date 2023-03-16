@@ -26,8 +26,10 @@ export default function Home() {
   const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
   const isInitLoading = isAuthLoading || user === undefined
   const isPhotoUploaded = user && user.photoURL
-  const isSubmitBlocked = !!(!displayName || !file || (progress && progress > 0))
-  const isPosting = (progress && progress > 0) || isAuthLoading
+  const progressing = progress !== undefined && progress >= 0
+  const isSubmitBlocked = !!(!displayName || !file || progressing)
+  const isPosting = progressing || isAuthLoading
+
   /** 表示に必要な情報のみをPick */
   const userToDisplay = user
     ? {

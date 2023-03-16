@@ -1,7 +1,7 @@
 import { keyframes } from 'styled-components'
 import tw, { styled } from 'twin.macro'
 
-const OverRay = tw.div`absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 gap-x-2 overflow-hidden w-full`
+const OverRay = tw.div`absolute inset-0 flex items-center justify-center bg-white bg-opacity-30 gap-x-2 overflow-hidden w-full`
 const Progress = tw.div`absolute top-0 left-0 z-40 h-1 max-w-full min-w-0 transition-all duration-200 bg-primary`
 //プログレスの情報がない時のプログレスバーのアニメーションを定義
 const loadingAnimation = keyframes`
@@ -13,8 +13,8 @@ const loadingAnimation = keyframes`
   }
 `
 const Loading = styled(Progress)`
-  animation: ${loadingAnimation} 1s ease-in-out infinite;
-  animation-direction: alternate-reverse;
+  animation: ${loadingAnimation} 1.5s ease-in-out infinite;
+  animation-direction: alternate;
 `
 
 export const OverRayLoading: React.FC<{ progressPercentage?: number | undefined }> = ({
