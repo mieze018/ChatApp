@@ -11,7 +11,7 @@ import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
 const Wrapper = tw.div`
 h-full w-full 
 border-t border-gray-500
-py-2 px-2 md:px-4 lg:px-0
+py-4 px-2 md:px-4 lg:px-0
 grid gap-y-2
 `
 

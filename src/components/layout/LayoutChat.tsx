@@ -14,7 +14,7 @@ const WrapperChat = tw.div`h-full w-full
 grid items-center justify-center [grid-template-rows: 1fr max-content] content-between
 px-4 mx-auto
 `
-const ScrollWrapper = tw.div`overflow-y-auto w-screen h-[inherit]`
+const ScrollWrapper = tw.div`overflow-y-auto w-screen h-[inherit] bg-gray-100`
 
 export const LayoutChat: React.FC<
   LayoutProps & {

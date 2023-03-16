@@ -11,7 +11,6 @@ import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
 import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
 import { authListener } from '@/src/libs/firebase/authListener'
-import { timestampToRelativeDate } from '@/src/libs/formatTIme'
 
 export default function Home() {
   const [user, setUser] = useState<userStateType['user']>(undefined)
@@ -37,18 +36,13 @@ export default function Home() {
         uid: user?.uid,
       }
     : undefined
-  /** タイムスタンプをフォーマットして再定義 */
-  const chatsToDisplay = chats.map((chat) => ({
-    ...chat,
-    createdAt: timestampToRelativeDate(chat.createdAt),
-  }))
 
   if (isInitLoading) return <OverRayProgress />
   if (isPhotoUploaded) {
     return (
       <>
         <LayoutChat
-          chats={chatsToDisplay}
+          chats={chats}
           isLoading={isLoading}
           isBlank={isBlank}
           message={message}
