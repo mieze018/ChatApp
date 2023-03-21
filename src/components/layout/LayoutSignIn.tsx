@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
 import type { useSignUpType } from '@/src/hooks/firebase/useSingUp'
-import type { authUserType } from '@/src/types/firebaseDB'
+import type { authUserDisplayableType, authUserType, errorType } from '@/src/types/firebaseDB'
 
 import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
 import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
@@ -23,15 +23,15 @@ const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white ro
 
 export const LayoutSignIn: React.FC<
   LayoutProps & {
-    user: authUserType | null | undefined
+    user: authUserType
     handleSignUp: useSignUpType['handleSignUp']
-    setDisplayName: useSignUpType['setDisplayName']
-    displayName: useSignUpType['displayName']
-    setFile: useSignUpType['setFile']
-    file: useSignUpType['file']
-    error: useSignUpType['error']
-    progress: useSignUpType['progress']
-    isSubmitBlocked: boolean
+    setDisplayName: (value: authUserDisplayableType['displayName']) => void
+    displayName: authUserDisplayableType['displayName']
+    setFile: (value: File) => void
+    file: File
+    error: errorType
+    progress: number | undefined
+    isSignUpSubmitBlocked: boolean
   }
 > = ({
   user,
@@ -43,7 +43,7 @@ export const LayoutSignIn: React.FC<
   setFile,
   error,
   progress,
-  isSubmitBlocked,
+  isSignUpSubmitBlocked,
 }) => (
   <Layout user={user} onLogout={onLogout}>
     <WrapperSignIn>
@@ -51,7 +51,7 @@ export const LayoutSignIn: React.FC<
         <SignInHeader>{microCopies.signInHeader}</SignInHeader>
         <SignInInputImage setFile={setFile} file={file} />
         <SignInInputDisplayName displayName={displayName} setDisplayName={setDisplayName} />
-        <SignInSubmit isSubmitBlocked={isSubmitBlocked} />
+        <SignInSubmit isSignUpSubmitBlocked={isSignUpSubmitBlocked} />
         {!!(progress || (user && <OverRayLoading progressPercentage={progress} />))}
         {error && <ErrorWrapper>{error.message}</ErrorWrapper>}
       </FormCard>

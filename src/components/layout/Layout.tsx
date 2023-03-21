@@ -14,7 +14,7 @@ break-all text-gray-800
 const Main = tw.main`overflow-auto`
 
 export const Layout: React.FC<{
-  user: Pick<authUserType, 'displayName' | 'photoURL'> | undefined
+  user: authUserType
   children?: React.ReactNode
   onLogout: HeaderAppProps['onLogout']
   isOverflowYHidden?: boolean

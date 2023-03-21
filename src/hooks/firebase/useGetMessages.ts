@@ -1,17 +1,17 @@
 import { FirebaseError } from 'firebase/app'
 import { getDatabase, ref, onValue, onChildAdded } from 'firebase/database'
-import { useState, useEffect } from 'react'
-
-import type { userStateType } from '@/src/pages'
-import type { chatType } from '@/src/types/firebaseDB'
+import { useAtom, useAtomValue } from 'jotai'
+import { useEffect } from 'react'
 
 import { useError } from '@/src/hooks/firebase/useError'
+import { chatsAtom, isAuthLoadingAtom, isBlankAtom, userAtom } from '@/src/libs/states'
 
-export const useGetMessages = (user: userStateType['user']) => {
-  const [chats, setChats] = useState<chatType[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isBlank, setIsBlank] = useState<boolean>(false)
+export const useGetMessages = () => {
+  const user = useAtomValue(userAtom)
+  const [chats, setChats] = useAtom(chatsAtom)
+  const [isBlank, setIsBlank] = useAtom(isBlankAtom)
   const { error, setError } = useError()
+  const [isLoading, setIsLoading] = useAtom(isAuthLoadingAtom)
   useEffect(() => {
     if (user) {
       try {
@@ -29,7 +29,7 @@ export const useGetMessages = (user: userStateType['user']) => {
         return onChildAdded(chatRef, (snapshot) => {
           const value = snapshot.val()
           const { message, createdAt, user } = value
-          setChats((prev) => [...prev, { message, createdAt, user }])
+          setChats((prev = []) => [...prev, { message, createdAt, user }])
           setIsLoading(false)
         })
       } catch (e) {
@@ -42,7 +42,7 @@ export const useGetMessages = (user: userStateType['user']) => {
       }
     }
     return
-  }, [setError, user])
+  }, [setChats, setError, setIsBlank, setIsLoading, user])
   return { chats, isLoading, isBlank, error }
 }
 export type useGetMessagesType = ReturnType<typeof useGetMessages>

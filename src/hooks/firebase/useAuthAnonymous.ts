@@ -1,14 +1,15 @@
 import { getAuth, signInAnonymously } from 'firebase/auth'
-import { useState } from 'react'
+import { useAtom } from 'jotai'
 
 import type { User } from 'firebase/auth'
 
 import { useError } from '@/src/hooks/firebase/useError'
+import { isAuthLoadingAtom } from '@/src/libs/states'
 
 export const useAuthAnonymous = () => {
   const auth = getAuth()
   const user = auth.currentUser
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useAtom(isAuthLoadingAtom)
 
   const { error, setError } = useError()
 

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import tw from 'twin.macro'
 
 import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
-import type { chatType } from '@/src/types/firebaseDB'
+import type { authUserDisplayableType, chatType } from '@/src/types/firebaseDB'
 
 import { ChatMessageAvatar } from '@/src/components/combined/ChatMessageAvatar'
 import { useInterval } from '@/src/hooks/useInterval'
@@ -20,8 +20,8 @@ const WrapperChatMessageCreatedAt = tw.div`text-xs text-gray-500 self-end pb-1 s
 
 export const ChatMessage: React.FC<{
   message: LayoutChatProps['message']
-  photoURL: chatType['user']['photoURL']
-  displayName: chatType['user']['displayName']
+  photoURL: authUserDisplayableType['photoURL']
+  displayName: authUserDisplayableType['photoURL']
   createdAt: chatType['createdAt']
   isMyMessage: boolean
 }> = ({ message, photoURL, displayName, createdAt, isMyMessage }) => (

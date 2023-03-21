@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useAtom } from 'jotai'
 
-import type { FirebaseError } from 'firebase/app'
+import { errorAtom } from '@/src/libs/states'
 
 export const useError = () => {
-  const [error, setError] = useState<FirebaseError | { message: string } | null>(null)
+  const [error, setError] = useAtom(errorAtom)
   return { error, setError }
 }
 export type useErrorType = ReturnType<typeof useError>

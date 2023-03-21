@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import tw, { styled } from 'twin.macro'
 
-import type { chatType } from '@/src/types/firebaseDB'
-
 import NoUserImage from '@/public/icons/no-user-image.svg'
 import { AvatarWrapper } from '@/src/components/atom/AvatarWrapper'
 import { microCopies } from '@/src/libs/microCopies'
@@ -14,8 +12,8 @@ const SvgChatMessageAvatarNoImage = styled(NoUserImage)`
 `
 
 export const ChatMessageAvatar: React.FC<{
-  photoURL: chatType['user']['photoURL']
-  displayName: chatType['user']['displayName']
+  photoURL: string
+  displayName: string
 }> = ({ photoURL, displayName }) => {
   if (photoURL)
     return (
@@ -31,3 +29,4 @@ export const ChatMessageAvatar: React.FC<{
     )
   return <SvgChatMessageAvatarNoImage css={[StyleChatMessageAvatar]} />
 }
+export type ChatMessageAvatarProps = React.ComponentProps<typeof ChatMessageAvatar>
