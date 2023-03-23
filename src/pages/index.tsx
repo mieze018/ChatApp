@@ -36,10 +36,9 @@ export default function Home() {
   const chats = useAtomValue(chatsAtom)
   const progress = useAtomValue(progressAtom)
   const user = useAtomValue(userAtom)
-  if (isInitLoading || user === undefined) return <OverRayLoading />
-  if (isPhotoUploaded && user) {
-    return (
-      <>
+  return (
+    <>
+      {isPhotoUploaded && user && (
         <LayoutChat
           chats={chats}
           message={message}
@@ -49,27 +48,24 @@ export default function Home() {
           onLogout={deleteAccount}
           error={error}
         />
-        {(isPosting || isLoadingChats || chats === undefined) && (
-          <OverRayLoading progressPercentage={progress} />
-        )}
-      </>
-    )
-  }
-  return (
-    <>
-      <LayoutSignIn
-        user={user}
-        onLogout={deleteAccount}
-        handleSignUp={handleSignUp}
-        setDisplayName={setDisplayName}
-        displayName={displayName}
-        setFile={setFile}
-        file={file}
-        error={error}
-        progress={progress}
-        isSignUpSubmitBlocked={isSignUpSubmitBlocked}
-      />
-      {isPosting && <OverRayLoading progressPercentage={progress} />}
+      )}
+      {!isInitLoading && !user && (
+        <LayoutSignIn
+          user={user}
+          onLogout={deleteAccount}
+          handleSignUp={handleSignUp}
+          setDisplayName={setDisplayName}
+          displayName={displayName}
+          setFile={setFile}
+          file={file}
+          error={error}
+          progress={progress}
+          isSignUpSubmitBlocked={isSignUpSubmitBlocked}
+        />
+      )}
+      {(isPosting || isInitLoading || isLoadingChats || chats === undefined) && (
+        <OverRayLoading progressPercentage={progress} />
+      )}
     </>
   )
 }
