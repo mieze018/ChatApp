@@ -24,7 +24,7 @@ export const LayoutSignIn: React.FC<{
   handleSignUp: useSignUpType['handleSignUp']
   setDisplayName: (value: authUserType['displayName']) => void
   displayName: authUserType['displayName']
-  setFile: (value: File) => void
+  setFile: (value: File | undefined) => void
   file: File | undefined
   error: errorType
   progress: number | undefined

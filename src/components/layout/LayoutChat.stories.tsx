@@ -16,7 +16,6 @@ export const Default: Story = {
   args: {
     user: mockUser3,
     chats: mockChats,
-    isLoading: false,
     message: '',
     setMessage: () => null,
     handleSendMessage: () => new Promise(() => null),
@@ -25,7 +24,7 @@ export const Default: Story = {
 export const Blank: Story = {
   args: {
     ...Default.args,
-    chats: undefined,
+    chats: [],
   },
 }
 export const OnError: Story = {

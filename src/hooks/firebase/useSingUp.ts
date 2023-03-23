@@ -82,7 +82,11 @@ export const useSignUp = () => {
           updateProfile(user, { displayName: displayName, photoURL: downloadURL }).then(() => {
             // ユーザー情報を再取得
             const auth = getAuth()
-            setUser(auth.currentUser)
+            const { currentUser } = auth
+            if (!currentUser) return
+            const { displayName, photoURL, uid } = currentUser
+            if (!displayName || !photoURL || !uid) return
+            setUser({ displayName, photoURL, uid })
             setError(null)
             resetFormValue()
           })

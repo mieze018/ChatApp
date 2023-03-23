@@ -15,7 +15,6 @@ type Story = StoryObj<typeof LayoutSignIn>
 export const Default: Story = {
   args: {
     user: undefined,
-    onLogout: () => null,
     setDisplayName: () => null,
     displayName: '',
     setFile: () => null,

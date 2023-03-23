@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import tw from 'twin.macro'
 
-import type { LayoutSignInProps } from '@/src/components/layout/LayoutSignIn'
+import type { imageFileType } from '@/src/libs/states'
 
 import NoUserImageIcon from '@/public/icons/no-user-image.svg'
 import { AvatarWrapper } from '@/src/components/atom/AvatarWrapper'
@@ -11,10 +11,10 @@ import { microCopies } from '@/src/libs/microCopies'
 
 const styleImage = tw`w-20 h-20 text-gray-300 rounded-full`
 
-export const SignInInputImage: React.FC<Pick<LayoutSignInProps, 'file' | 'setFile'>> = ({
-  file,
-  setFile,
-}) => (
+export const SignInInputImage: React.FC<{
+  file: imageFileType | undefined
+  setFile: (value: imageFileType | undefined) => void
+}> = ({ file, setFile }) => (
   <LabelSignIn css={tw`grid cursor-pointer gap-y-8`}>
     {file ? (
       <AvatarWrapper css={styleImage}>
