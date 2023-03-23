@@ -1,6 +1,7 @@
 import { useAtom, useAtomValue } from 'jotai'
 
 import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
+import { Layout } from '@/src/components/layout/Layout'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
 import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
@@ -36,8 +37,10 @@ export default function Home() {
   const chats = useAtomValue(chatsAtom)
   const progress = useAtomValue(progressAtom)
   const user = useAtomValue(userAtom)
+  const isShowLoading =
+    isPosting || isInitLoading || isLoadingChats || (user && chats === undefined)
   return (
-    <>
+    <Layout user={user} onSignOut={deleteAccount} isOverflowYHidden={!user}>
       {isPhotoUploaded && user && (
         <LayoutChat
           chats={chats}
@@ -45,14 +48,12 @@ export default function Home() {
           setMessage={setMessage}
           handleSendMessage={handleSendMessage}
           user={user}
-          onLogout={deleteAccount}
           error={error}
         />
       )}
       {!isInitLoading && !user && (
         <LayoutSignIn
           user={user}
-          onLogout={deleteAccount}
           handleSignUp={handleSignUp}
           setDisplayName={setDisplayName}
           displayName={displayName}
@@ -63,9 +64,7 @@ export default function Home() {
           isSignUpSubmitBlocked={isSignUpSubmitBlocked}
         />
       )}
-      {(isPosting || isInitLoading || isLoadingChats || chats === undefined) && (
-        <OverRayLoading progressPercentage={progress} />
-      )}
-    </>
+      {isShowLoading && <OverRayLoading progressPercentage={progress} />}
+    </Layout>
   )
 }
