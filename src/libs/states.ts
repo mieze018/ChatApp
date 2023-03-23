@@ -34,15 +34,13 @@ export const handleSignUpAtom = atom<(e: FormEvent<HTMLFormElement>) => Promise<
 /** 1チャットの情報 */
 export type chatType = {
   id?: string
-  message: string | null
+  message: string
   user: authUserType
   createdAt: string
 }
 /** チャットメッセージリスト */
 export const chatsAtom = atom<chatType[] | undefined>(undefined)
-/** チャットがまだ一件も投稿されていない */
-export type isBlankType = boolean
-export const isBlankAtom = atom<isBlankType>(false)
+
 /** 入力中のメッセージ */
 export type messageType = string
 export const messageAtom = atom<messageType>('')

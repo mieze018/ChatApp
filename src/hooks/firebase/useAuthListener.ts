@@ -24,5 +24,7 @@ export const useAuthListener = () => {
       }
       setIsAuthLoading(false)
     })
-  }, [setUser, setIsAuthLoading, auth])
+    return () => setIsAuthLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 }

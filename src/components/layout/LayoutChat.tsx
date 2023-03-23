@@ -2,13 +2,7 @@ import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
 import type { usePostMessageType } from '@/src/hooks/firebase/usePostMessage'
-import type {
-  authUserType,
-  chatType,
-  errorType,
-  isBlankType,
-  isLoadingChatsType,
-} from '@/src/libs/states'
+import type { authUserType, chatType, errorType } from '@/src/libs/states'
 
 import { ChatInput } from '@/src/components/combined/ChatMessageInput'
 import { ChatMessageList } from '@/src/components/combined/ChatMessageList'
@@ -23,29 +17,17 @@ const ScrollWrapper = tw.div`overflow-y-auto w-screen h-[inherit] bg-gray-100`
 export const LayoutChat: React.FC<
   LayoutProps & {
     user: authUserType
-    chats: chatType[]
-    isLoadingChat: isLoadingChatsType
-    isBlank: isBlankType
+    chats: chatType[] | undefined
     message: chatType['message']
     setMessage: (value: chatType['message']) => void
     handleSendMessage: usePostMessageType['handleSendMessage']
     error: errorType
   }
-> = ({
-  user,
-  onLogout,
-  chats,
-  isLoadingChat,
-  isBlank,
-  message,
-  setMessage,
-  handleSendMessage,
-  error,
-}) => (
+> = ({ user, onLogout, chats, message, setMessage, handleSendMessage, error }) => (
   <Layout user={user} onLogout={onLogout} isOverflowYHidden={true}>
     <WrapperChat>
       <ScrollWrapper>
-        <ChatMessageList chats={chats} user={user} isLoading={isLoadingChat} isBlank={isBlank} />
+        <ChatMessageList chats={chats} user={user} />
       </ScrollWrapper>
       <ChatInput
         error={error}

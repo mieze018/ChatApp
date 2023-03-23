@@ -14,7 +14,6 @@ import {
   chatsAtom,
   displayNameAtom,
   imageFileAtom,
-  isBlankAtom,
   messageAtom,
   progressAtom,
   userAtom,
@@ -35,18 +34,14 @@ export default function Home() {
   const { isLoadingChats } = useIsLoading()
 
   const chats = useAtomValue(chatsAtom)
-  const isBlank = useAtomValue(isBlankAtom)
   const progress = useAtomValue(progressAtom)
   const user = useAtomValue(userAtom)
-
   if (isInitLoading || user === undefined) return <OverRayLoading />
-  if (isPhotoUploaded && chats && user) {
+  if (isPhotoUploaded && user) {
     return (
       <>
         <LayoutChat
           chats={chats}
-          isLoading={isLoadingChats}
-          isBlank={isBlank}
           message={message}
           setMessage={setMessage}
           handleSendMessage={handleSendMessage}
@@ -54,7 +49,9 @@ export default function Home() {
           onLogout={deleteAccount}
           error={error}
         />
-        {isPosting && <OverRayLoading progressPercentage={progress} />}
+        {(isPosting || isLoadingChats || chats === undefined) && (
+          <OverRayLoading progressPercentage={progress} />
+        )}
       </>
     )
   }
