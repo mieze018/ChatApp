@@ -1,5 +1,5 @@
 import { FirebaseError } from 'firebase/app'
-import { getDatabase, ref, onValue, onChildAdded } from 'firebase/database'
+import { getDatabase, onChildAdded, onValue, ref } from 'firebase/database'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
 
@@ -10,32 +10,44 @@ import { chatsAtom, isLoadingChatsAtom, userAtom } from '@/src/libs/states'
 export const useGetMessages = () => {
   const user = useAtomValue(userAtom)
   const setChats = useSetAtom(chatsAtom)
-  const { error, setError } = useError()
+  const { setError } = useError()
   const setIsLoadingChats = useSetAtom(isLoadingChatsAtom)
   useEffect(() => {
     if (!user) return
+    const handleOnEmpty = () => {
+      setChats([])
+      setIsLoadingChats(false)
+    }
     try {
       const db = getDatabase()
       const chatRef = ref(db, dbNameChat)
       onValue(chatRef, (snapshot) => {
-        const value = snapshot.val()
-        if (value === null) {
-          setIsLoadingChats(false)
-          setChats([])
+        const values = snapshot.val()
+        if (values === null) {
+          handleOnEmpty()
           return
         }
       })
-      return onChildAdded(chatRef, (snapshot) => {
+      onChildAdded(chatRef, (snapshot) => {
         const value = snapshot.val()
+        const id = snapshot.key
+        if (value === null || id === null) {
+          handleOnEmpty()
+          return
+        }
+
         const { message, createdAt, user } = value
-        setChats((prev = []) => [...prev, { message, createdAt, user }])
-        setIsLoadingChats(false)
+        setChats((prevChats) => {
+          const isExist = prevChats?.some((chat) => chat.id === id)
+          if (isExist) return prevChats
+          return [...(prevChats ?? []), { id, message, createdAt, user }]
+        })
       })
     } catch (e) {
       if (e instanceof FirebaseError) {
         setError(e)
       }
-
+    } finally {
       setIsLoadingChats(false)
     }
     return () => setIsLoadingChats(false)

@@ -33,7 +33,7 @@ export const handleSignUpAtom = atom<(e: FormEvent<HTMLFormElement>) => Promise<
 )
 /** 1チャットの情報 */
 export type chatType = {
-  id?: string
+  id: string
   message: string
   user: authUserType
   createdAt: string
