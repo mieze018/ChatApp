@@ -3,10 +3,11 @@ import { getAuth, deleteUser } from 'firebase/auth'
 import { useSetAtom } from 'jotai'
 
 import { useError } from '@/src/hooks/firebase/useError'
-import { isAuthLoadingAtom } from '@/src/libs/states'
+import { chatsAtom, isAuthLoadingAtom } from '@/src/libs/states'
 
 export const useAuthDelete = () => {
   const setIsAuthLoading = useSetAtom(isAuthLoadingAtom)
+  const setChats = useSetAtom(chatsAtom)
   const { error, setError } = useError()
   const deleteAccount = () => {
     const auth = getAuth()
@@ -15,6 +16,7 @@ export const useAuthDelete = () => {
     deleteUser(auth.currentUser)
       .then(() => {
         setIsAuthLoading(false)
+        setChats(undefined)
       })
       .catch((e) => {
         if (e instanceof FirebaseError) {

@@ -39,5 +39,5 @@ export const useGetMessages = () => {
       setIsLoadingChats(false)
     }
     return () => setIsLoadingChats(false)
-  }, [setChats, setError, setIsLoadingChats, user, error])
+  }, [setChats, setError, setIsLoadingChats, user])
 }
