@@ -1,4 +1,4 @@
-import type { chatType } from '@/src/types/firebaseDB'
+import type { chatType } from '@/src/libs/states'
 
 import { timestampToRelativeDate } from '@/src/libs/timestampFormatter'
 

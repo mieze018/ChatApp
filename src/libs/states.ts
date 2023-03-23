@@ -1,37 +1,57 @@
 import { atom } from 'jotai'
 
-import type { authUserType, chatType, errorType } from '@/src/types/firebaseDB'
 import type { FormEvent } from 'react'
 
-/** 認証済みのユーザー情報 */
-export const userAtom = atom<authUserType>(undefined)
-
+/**  ログインしているユーザーの情報 */
+export type authUserType = {
+  uid: string
+  displayName: string
+  photoURL: string
+}
+export const userAtom = atom<authUserType | null | undefined>(undefined)
 export const isAuthLoadingAtom = atom(false)
 /** 入力中のユーザー名 */
 export const displayNameAtom = atom('')
 /** 入力中の画像ファイル*/
-export const imageFileAtom = atom<File | undefined>(undefined)
-/** エラーメッセージ */
+export type imageFileType = File
+export const imageFileAtom = atom<imageFileType | undefined>(undefined)
+/** エラーの情報 */
+export type errorType = {
+  code?: string
+  message: string
+} | null
 export const errorAtom = atom<errorType>(null)
 /**画像アップロードの進捗 */
-export const progressAtom = atom<number | undefined>(undefined)
+export type progressType = number
+export const progressAtom = atom<progressType | undefined>(undefined)
 /** アップロード後の画像URL */
-export const downloadURLAtom = atom<string | undefined>(undefined)
+export type downloadURLType = string
+export const downloadURLAtom = atom<downloadURLType | undefined>(undefined)
 /** サインアップの送信 */
 export const handleSignUpAtom = atom<(e: FormEvent<HTMLFormElement>) => Promise<void>>(() =>
   Promise.resolve()
 )
+/** 1チャットの情報 */
+export type chatType = {
+  id?: string
+  message: string | null
+  user: authUserType
+  createdAt: string
+}
 /** チャットメッセージリスト */
 export const chatsAtom = atom<chatType[] | undefined>(undefined)
 /** チャットがまだ一件も投稿されていない */
-export const isBlankAtom = atom(false)
+export type isBlankType = boolean
+export const isBlankAtom = atom<isBlankType>(false)
 /** 入力中のメッセージ */
-export const messageAtom = atom('')
+export type messageType = string
+export const messageAtom = atom<messageType>('')
 /** チャットのローディング状態 */
-export const isLoadingChatsAtom = atom(false)
+export type isLoadingChatsType = boolean
+export const isLoadingChatsAtom = atom<isLoadingChatsType>(false)
 /** チャットの送信 */
-export const handleSendMessageAtom = atom<(e: FormEvent<HTMLFormElement>) => Promise<void>>(() =>
-  Promise.resolve()
-)
+export type handleSendMessageType = (e: FormEvent<HTMLFormElement>) => Promise<void>
+export const handleSendMessageAtom = atom<handleSendMessageType>(() => Promise.resolve())
 /** ログアウト(アカウントの削除) */
-export const deleteAccountAtom = atom<() => void>(() => null)
+export type deleteAccountType = () => void
+export const deleteAccountAtom = atom<deleteAccountType>(() => null)

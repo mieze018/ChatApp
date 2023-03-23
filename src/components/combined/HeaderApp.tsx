@@ -46,4 +46,3 @@ export const HeaderApp: React.FC<{
     </WrapperInnerHeader>
   </Header>
 )
-export type HeaderAppProps = React.ComponentProps<typeof HeaderApp>

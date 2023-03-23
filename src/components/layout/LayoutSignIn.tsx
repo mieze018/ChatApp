@@ -3,7 +3,7 @@ import tw from 'twin.macro'
 
 import type { LayoutProps } from '@/src/components/layout/Layout'
 import type { useSignUpType } from '@/src/hooks/firebase/useSingUp'
-import type { authUserDisplayableType, authUserType, errorType } from '@/src/types/firebaseDB'
+import type { authUserType, errorType } from '@/src/libs/states'
 
 import { ErrorWrapper } from '@/src/components/atom/ErrorWrapper'
 import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
@@ -23,12 +23,12 @@ const FormCard = tw.form`grid gap-8 items-center justify-center p-10 bg-white ro
 
 export const LayoutSignIn: React.FC<
   LayoutProps & {
-    user: authUserType
+    user: authUserType | null
     handleSignUp: useSignUpType['handleSignUp']
-    setDisplayName: (value: authUserDisplayableType['displayName']) => void
-    displayName: authUserDisplayableType['displayName']
+    setDisplayName: (value: authUserType['displayName']) => void
+    displayName: authUserType['displayName']
     setFile: (value: File) => void
-    file: File
+    file: File | undefined
     error: errorType
     progress: number | undefined
     isSignUpSubmitBlocked: boolean

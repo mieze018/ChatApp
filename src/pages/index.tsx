@@ -1,8 +1,5 @@
 import { useAtom, useAtomValue } from 'jotai'
 
-import type { User } from 'firebase/auth'
-import type { AppProps } from 'next/app'
-
 import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
@@ -42,8 +39,8 @@ export default function Home() {
   const progress = useAtomValue(progressAtom)
   const user = useAtomValue(userAtom)
 
-  if (isInitLoading) return <OverRayLoading />
-  if (isPhotoUploaded && chats) {
+  if (isInitLoading || user === undefined) return <OverRayLoading />
+  if (isPhotoUploaded && chats && user) {
     return (
       <>
         <LayoutChat
@@ -79,14 +76,3 @@ export default function Home() {
     </>
   )
 }
-
-export type userStateType = {
-  user: User | null | undefined
-  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>
-}
-export type authLoadingStateType = {
-  isAuthLoading: boolean
-  setIsAuthLoading: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export type AppPropsType = userStateType & authLoadingStateType & AppProps

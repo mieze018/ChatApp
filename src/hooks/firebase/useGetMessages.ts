@@ -45,4 +45,3 @@ export const useGetMessages = () => {
   }, [setChats, setError, setIsBlank, setIsLoading, user])
   return { chats, isLoading, isBlank, error }
 }
-export type useGetMessagesType = ReturnType<typeof useGetMessages>

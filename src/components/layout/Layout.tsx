@@ -1,7 +1,7 @@
 import tw from 'twin.macro'
 
 import type { HeaderAppProps } from '@/src/components/combined/HeaderApp'
-import type { authUserType } from '@/src/types/firebaseDB'
+import type { authUserType } from '@/src/libs/states'
 
 import { HeaderApp } from '@/src/components/combined/HeaderApp'
 
@@ -14,7 +14,7 @@ break-all text-gray-800
 const Main = tw.main`overflow-auto`
 
 export const Layout: React.FC<{
-  user: authUserType
+  user: authUserType | null
   children?: React.ReactNode
   onLogout: HeaderAppProps['onLogout']
   isOverflowYHidden?: boolean

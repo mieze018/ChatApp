@@ -29,4 +29,3 @@ export const ChatMessageAvatar: React.FC<{
     )
   return <SvgChatMessageAvatarNoImage css={[StyleChatMessageAvatar]} />
 }
-export type ChatMessageAvatarProps = React.ComponentProps<typeof ChatMessageAvatar>

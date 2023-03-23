@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai'
 
-import type { chatType } from '@/src/types/firebaseDB'
+import type { chatType } from '@/src/libs/states'
 
 import { microCopies } from '@/src/libs/microCopies'
 import { userAtom } from '@/src/libs/states'

@@ -24,4 +24,3 @@ export const useAuthDelete = () => {
   }
   return { deleteAccount, error }
 }
-export type useAuthDeleteType = ReturnType<typeof useAuthDelete>

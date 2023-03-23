@@ -31,4 +31,3 @@ export const useAuthAnonymous = () => {
 
   return { user, handleAuthAnonymous, error, isLoading }
 }
-export type useAuthAnonymousType = ReturnType<typeof useAuthAnonymous>
