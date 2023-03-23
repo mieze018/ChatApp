@@ -5,6 +5,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import type { FormEvent } from 'react'
 
 import { useError } from '@/src/hooks/firebase/useError'
+import { dbNameChat } from '@/src/libs/firebase'
 import { messageAtom, userAtom } from '@/src/libs/states'
 
 export const usePostMessage = () => {
@@ -17,7 +18,7 @@ export const usePostMessage = () => {
     if (!message) return
     try {
       const db = getDatabase()
-      const dbRef = ref(db, 'chat')
+      const dbRef = ref(db, dbNameChat)
       await push(dbRef, {
         message,
         createdAt: new Date().toISOString(),

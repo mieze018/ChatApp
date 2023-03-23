@@ -4,6 +4,7 @@ import { useAtom, useAtomValue } from 'jotai'
 import { useEffect } from 'react'
 
 import { useError } from '@/src/hooks/firebase/useError'
+import { dbNameChat } from '@/src/libs/firebase'
 import { chatsAtom, isAuthLoadingAtom, isBlankAtom, userAtom } from '@/src/libs/states'
 
 export const useGetMessages = () => {
@@ -16,7 +17,7 @@ export const useGetMessages = () => {
     if (user) {
       try {
         const db = getDatabase()
-        const chatRef = ref(db, 'chat')
+        const chatRef = ref(db, dbNameChat)
         onValue(chatRef, (snapshot) => {
           const value = snapshot.val()
           if (value === null) {

@@ -25,3 +25,5 @@ export const initializeFirebaseApp = () =>
   !getApps().length ? initializeApp(firebaseConfig) : getApp()
 
 export const firebaseStorage = (app: FirebaseApp) => getStorage(app)
+
+export const dbNameChat = 'chat'
