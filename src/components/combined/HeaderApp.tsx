@@ -17,8 +17,8 @@ const DisplayName = tw.div`text-sm font-semibold line-clamp-1 max-w-prose`
 
 export const HeaderApp: React.FC<{
   user: LayoutProps['user']
-  onLogout: () => void
-}> = ({ user, onLogout }) => (
+  onSignOut: () => void
+}> = ({ user, onSignOut }) => (
   <Header>
     <WrapperInnerHeader>
       <ChatIcon css={tw`w-8 h-8 text-primary`} />
@@ -38,7 +38,7 @@ export const HeaderApp: React.FC<{
               />
             </AvatarWrapper>
           </UserWrapper>
-          <Button variant="secondary" size="small" onClick={onLogout}>
+          <Button variant="secondary" size="small" onClick={onSignOut}>
             {microCopies.signOut}
           </Button>
         </>
@@ -46,4 +46,3 @@ export const HeaderApp: React.FC<{
     </WrapperInnerHeader>
   </Header>
 )
-export type HeaderAppProps = React.ComponentProps<typeof HeaderApp>

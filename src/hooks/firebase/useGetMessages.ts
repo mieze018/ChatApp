@@ -1,48 +1,55 @@
 import { FirebaseError } from 'firebase/app'
-import { getDatabase, ref, onValue, onChildAdded } from 'firebase/database'
-import { useState, useEffect } from 'react'
-
-import type { userStateType } from '@/src/pages'
-import type { chatType } from '@/src/types/firebaseDB'
+import { getDatabase, onChildAdded, onValue, ref } from 'firebase/database'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { useEffect } from 'react'
 
 import { useError } from '@/src/hooks/firebase/useError'
+import { dbNameChat } from '@/src/libs/firebase'
+import { chatsAtom, isLoadingChatsAtom, userAtom } from '@/src/libs/states'
 
-export const useGetMessages = (user: userStateType['user']) => {
-  const [chats, setChats] = useState<chatType[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isBlank, setIsBlank] = useState<boolean>(false)
-  const { error, setError } = useError()
+export const useGetMessages = () => {
+  const user = useAtomValue(userAtom)
+  const setChats = useSetAtom(chatsAtom)
+  const { setError } = useError()
+  const setIsLoadingChats = useSetAtom(isLoadingChatsAtom)
   useEffect(() => {
-    if (user) {
-      try {
-        const db = getDatabase()
-        const chatRef = ref(db, 'chat')
-        onValue(chatRef, (snapshot) => {
-          const value = snapshot.val()
-          if (value === null) {
-            setIsLoading(false)
-            setIsBlank(true)
-            return
-          }
-          setIsLoading(false)
-        })
-        return onChildAdded(chatRef, (snapshot) => {
-          const value = snapshot.val()
-          const { message, createdAt, user } = value
-          setChats((prev) => [...prev, { message, createdAt, user }])
-          setIsLoading(false)
-        })
-      } catch (e) {
-        if (e instanceof FirebaseError) {
-          setError(e)
+    if (!user) return
+    const handleOnEmpty = () => {
+      setChats([])
+      setIsLoadingChats(false)
+    }
+    try {
+      const db = getDatabase()
+      const chatRef = ref(db, dbNameChat)
+      onValue(chatRef, (snapshot) => {
+        const values = snapshot.val()
+        if (values === null) {
+          handleOnEmpty()
+          return
+        }
+      })
+      onChildAdded(chatRef, (snapshot) => {
+        const value = snapshot.val()
+        const id = snapshot.key
+        if (value === null || id === null) {
+          handleOnEmpty()
+          return
         }
 
-        setIsLoading(false)
-        return
+        const { message, createdAt, user } = value
+        setChats((prevChats) => {
+          const isExist = prevChats?.some((chat) => chat.id === id)
+          if (isExist) return prevChats
+          return [...(prevChats ?? []), { id, message, createdAt, user }]
+        })
+      })
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        setError(e)
       }
+    } finally {
+      setIsLoadingChats(false)
     }
-    return
-  }, [setError, user])
-  return { chats, isLoading, isBlank, error }
+    return () => setIsLoadingChats(false)
+  }, [setChats, setError, setIsLoadingChats, user])
 }
-export type useGetMessagesType = ReturnType<typeof useGetMessages>

@@ -1,89 +1,70 @@
-import { useEffect, useState } from 'react'
-
-import type { User } from 'firebase/auth'
-import type { AppProps } from 'next/app'
+import { useAtom, useAtomValue } from 'jotai'
 
 import { OverRayLoading } from '@/src/components/combined/OverRayLoading'
+import { Layout } from '@/src/components/layout/Layout'
 import { LayoutChat } from '@/src/components/layout/LayoutChat'
 import { LayoutSignIn } from '@/src/components/layout/LayoutSignIn'
 import { useAuthDelete } from '@/src/hooks/firebase/useAuthDelete'
+import { useAuthListener } from '@/src/hooks/firebase/useAuthListener'
+import { useError } from '@/src/hooks/firebase/useError'
 import { useGetMessages } from '@/src/hooks/firebase/useGetMessages'
 import { usePostMessage } from '@/src/hooks/firebase/usePostMessage'
 import { useSignUp } from '@/src/hooks/firebase/useSingUp'
-import { authListener } from '@/src/libs/firebase/authListener'
+import { useIsLoading } from '@/src/hooks/useIsLoading'
+import {
+  chatsAtom,
+  displayNameAtom,
+  imageFileAtom,
+  messageAtom,
+  progressAtom,
+  userAtom,
+} from '@/src/libs/states'
 
 export default function Home() {
-  const [user, setUser] = useState<userStateType['user']>(undefined)
-  const [isAuthLoading, setIsAuthLoading] = useState(false)
-  const { displayName, setDisplayName, setFile, file, error, handleSignUp, progress } = useSignUp({
-    setUser,
-  })
-  useEffect(() => {
-    authListener({ setUser, setIsAuthLoading })
-  }, [user])
-  const { chats, isLoading, isBlank } = useGetMessages(user)
-  const { message, setMessage, handleSendMessage } = usePostMessage()
-  const { deleteAccount } = useAuthDelete({ setIsAuthLoading })
-  const isInitLoading = isAuthLoading || user === undefined
-  const isPhotoUploaded = user && user.photoURL
-  const progressing = progress !== undefined && progress >= 0
-  const isSubmitBlocked = !!(!displayName || !file || progressing)
-  const isPosting = progressing || isAuthLoading
+  useAuthListener()
+  useGetMessages()
+  const [displayName, setDisplayName] = useAtom(displayNameAtom)
+  const [file, setFile] = useAtom(imageFileAtom)
+  const [message, setMessage] = useAtom(messageAtom)
 
-  /** 表示に必要な情報のみをPick */
-  const userToDisplay = user
-    ? {
-        displayName: user?.displayName,
-        photoURL: user?.photoURL,
-        uid: user?.uid,
-      }
-    : undefined
+  const { deleteAccount } = useAuthDelete()
+  const { error } = useError()
+  const { handleSendMessage } = usePostMessage()
+  const { handleSignUp } = useSignUp()
+  const { isInitLoading, isPhotoUploaded, isPosting, isSignUpSubmitBlocked } = useIsLoading()
+  const { isLoadingChats } = useIsLoading()
 
-  if (isInitLoading) return <OverRayLoading />
-  if (isPhotoUploaded) {
-    return (
-      <>
+  const chats = useAtomValue(chatsAtom)
+  const progress = useAtomValue(progressAtom)
+  const user = useAtomValue(userAtom)
+  const isShowLoading =
+    isPosting || isInitLoading || isLoadingChats || (user && chats === undefined)
+  return (
+    <Layout user={user} onSignOut={deleteAccount} isOverflowYHidden={!user}>
+      {isPhotoUploaded && user && (
         <LayoutChat
           chats={chats}
-          isLoading={isLoading}
-          isBlank={isBlank}
           message={message}
           setMessage={setMessage}
           handleSendMessage={handleSendMessage}
           user={user}
-          onLogout={deleteAccount}
           error={error}
         />
-        {isPosting && <OverRayLoading progressPercentage={progress} />}
-      </>
-    )
-  }
-  return (
-    <>
-      <LayoutSignIn
-        user={userToDisplay}
-        onLogout={deleteAccount}
-        handleSignUp={handleSignUp}
-        setDisplayName={setDisplayName}
-        displayName={displayName}
-        setFile={setFile}
-        file={file}
-        error={error}
-        progress={progress}
-        isSubmitBlocked={isSubmitBlocked}
-      />
-      {isPosting && <OverRayLoading progressPercentage={progress} />}
-    </>
+      )}
+      {!isInitLoading && !user && (
+        <LayoutSignIn
+          user={user}
+          handleSignUp={handleSignUp}
+          setDisplayName={setDisplayName}
+          displayName={displayName}
+          setFile={setFile}
+          file={file}
+          error={error}
+          progress={progress}
+          isSignUpSubmitBlocked={isSignUpSubmitBlocked}
+        />
+      )}
+      {isShowLoading && <OverRayLoading progressPercentage={progress} />}
+    </Layout>
   )
 }
-
-export type userStateType = {
-  user: User | null | undefined
-  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>
-}
-export type authLoadingStateType = {
-  isAuthLoading: boolean
-  setIsAuthLoading: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export type AppPropsType = userStateType & authLoadingStateType & AppProps

@@ -15,29 +15,26 @@ type Story = StoryObj<typeof LayoutSignIn>
 export const Default: Story = {
   args: {
     user: undefined,
-    onLogout: () => null,
     setDisplayName: () => null,
     displayName: '',
     setFile: () => null,
     error: null,
     progress: 0,
-    isSubmitBlocked: false,
+    isSignUpSubmitBlocked: false,
   },
 }
 export const OnError: Story = {
   args: {
     ...Default.args,
     error: {
-      name: 'Error',
       message: 'エラーが発生しました',
-      code: 'auth/unknown',
     },
   },
 }
 export const OnLoading: Story = {
   args: {
     ...Default.args,
-    isSubmitBlocked: true,
+    isSignUpSubmitBlocked: true,
   },
   render: (args) => (
     <>
@@ -49,7 +46,7 @@ export const OnProgress: Story = {
   args: {
     ...Default.args,
     progress: 50,
-    isSubmitBlocked: true,
+    isSignUpSubmitBlocked: true,
   },
   render: (args) => (
     <>

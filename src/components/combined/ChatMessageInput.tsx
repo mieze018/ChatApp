@@ -1,8 +1,7 @@
 import TextareaAutoSize from 'react-textarea-autosize'
 import tw from 'twin.macro'
 
-import type { LayoutChatProps } from '@/src/components/layout/LayoutChat'
-import type { useErrorType } from '@/src/hooks/firebase/useError'
+import type { errorType, handleSendMessageType, messageType } from '@/src/libs/states'
 
 import SendIcon from '@/public/icons/send.svg'
 import { Button } from '@/src/components/atom/Button'
@@ -27,10 +26,10 @@ max-h-[min(50vh,calc(100vh-16rem))]
 `
 
 export const ChatInput: React.FC<{
-  message: LayoutChatProps['message']
-  setMessage: LayoutChatProps['setMessage']
-  handleSendMessage: LayoutChatProps['handleSendMessage']
-  error: useErrorType['error']
+  message: messageType
+  setMessage: (value: messageType) => void
+  handleSendMessage: handleSendMessageType
+  error: errorType
 }> = ({ message, setMessage, handleSendMessage, error }) => (
   <Wrapper>
     <FormSendMessage onSubmit={handleSendMessage}>
